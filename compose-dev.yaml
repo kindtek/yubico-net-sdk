@@ -66,7 +66,6 @@ services:
 
   yubi:
     depends_on:
-    - "sol"
     - "py"
     command:
     - infinity
@@ -92,10 +91,15 @@ services:
       target: /usr/bin
 
   sol:
+    depends_on:
+    - "yubi"
     command:
-    - "apt-get update -qq && apt-get install -yq wget"
+    - sleep
+    #- "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    - ""
+    - infinity
+    #- "/bin/bash /usr/bin/solana-run.sh"
+
     image: solanalabs/solana:stable
     ports:
     - "8899:8899"
@@ -119,7 +123,6 @@ services:
   app:
     depends_on:
     - "sol"
-    - "yubi"
     command:
     - infinity
     #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
