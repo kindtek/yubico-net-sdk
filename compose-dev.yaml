@@ -147,7 +147,7 @@ services:
       target: /usr/bin
     - type: volume
       source: volume-com.docker.devenvironments.code
-      target: com.docker.devenvironments.code
+      target: /com.docker.devenvironments.code
     
 
 networks:
