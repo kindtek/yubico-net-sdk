@@ -63,6 +63,12 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
+    - type: volume
+      source: volume-com.docker.devenvironments.code
+      target: /com.docker.devenvironments.code
+    - type: volume
+      source: volume-sdb-vscode
+      target: /home/vscode
 
   yubi:
     depends_on:
@@ -87,8 +93,14 @@ services:
       source: volume-sdb-docker-sock
       target: /var/run/docker.sock
     - type: volume
+      source: volume-sdb-bin
+      target: /usr/bin
+    - type: volume
       source: volume-com.docker.devenvironments.code
       target: /com.docker.devenvironments.code
+    - type: volume
+      source: volume-sdb-vscode
+      target: /home/vscode
 
   sol:
     command:
@@ -107,13 +119,19 @@ services:
     networks:
       default: null
     stop_signal: SIGKILL
-    volumes:
+  volumes:
+    - type: volume
+      source: volume-sdb-docker-sock
+      target: /var/run/docker.sock
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
     - type: volume
-      source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
+      source: volume-com.docker.devenvironments.code
+      target: /com.docker.devenvironments.code
+    - type: volume
+      source: volume-sdb-vscode
+      target: /home/vscode
 
   app:
     depends_on:
@@ -137,14 +155,17 @@ services:
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-sdb-bin
-      target: /usr/bin
-    - type: volume
       source: volume-sdb-docker-sock
       target: /var/run/docker.sock
     - type: volume
+      source: volume-sdb-bin
+      target: /usr/bin
+    - type: volume
       source: volume-com.docker.devenvironments.code
       target: /com.docker.devenvironments.code
+    - type: volume
+      source: volume-sdb-vscode
+      target: /home/vscode
     
 
 networks:
@@ -162,6 +183,8 @@ volumes:
     name: volume-sdb-bin
   volume-com.docker.devenvironments.code:
     name: volume-com.docker.devenvironments.code
+  volume-sdb-vscode:
+    name: volume-sdb-vscode
 
   
   
