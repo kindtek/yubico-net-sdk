@@ -12,7 +12,7 @@ services:
       - volume-sdb-bin:/usr/bin
   app:
     image: debian:bullseye
-    init: true
+    # init: true
     networks:
       default: null
     stop_signal: SIGKILL
