@@ -63,6 +63,7 @@ services:
     - type: volume
       source: volume-sdb-vscode
       target: /home/vscode
+
   py:
     command:
     - infinity
@@ -82,6 +83,7 @@ services:
     - type: volume
       source: volume-sdb-py
       target: /usr/bin
+
   sol:
     command:
     - "apt-get update -qq && apt-get install -yq wget"
@@ -103,21 +105,12 @@ services:
     - type: volume
       source: volume-sdb-sol
       target: /usr/bin
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-dev
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
+
   app:
     depends_on:
     - "sol"
     - "yubi"
     - "py"
-#    - "agent"
     command:
     - infinity
     entrypoint:
