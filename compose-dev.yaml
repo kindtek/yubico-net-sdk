@@ -27,7 +27,7 @@ services:
     entrypoint:
     - sleep
     - infinity
-    image: docker/dev-environments-default:stable-1
+    image: mono:latest
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -41,31 +41,6 @@ services:
     - type: volume
       source: volume-sdb-docker-sock
       target: /var/run/docker.sock
-    
-  yubi:
-    command:
-    - infinity
-    entrypoint:
-    - sleep
-    image: docker/dev-environments-default:stable-1
-    #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
-    init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb-yubi
-    networks:
-      default: null
-    stop_signal: SIGKILL
-    volumes:
-    - type: volume
-      source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-com.docker.devenvironments.code
-      target: /com.docker.devenvironments.code
-
   py:
     command:
     - infinity
@@ -88,6 +63,32 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
+
+  yubi:
+    depends_on:
+    - "py"
+    command:
+    - infinity
+    entrypoint:
+    - sleep
+    image: docker/dev-environments-default:stable-1
+    #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb-yubi
+    networks:
+      default: null
+    stop_signal: SIGKILL
+    volumes:
+    - type: volume
+      source: volume-sdb-docker-sock
+      target: /var/run/docker.sock
+    - type: volume
+      source: volume-com.docker.devenvironments.code
+      target: /com.docker.devenvironments.code
 
   sol:
     command:
@@ -118,7 +119,6 @@ services:
     depends_on:
     - "sol"
     - "yubi"
-    - "py"
     command:
     - infinity
     entrypoint:
@@ -161,7 +161,7 @@ volumes:
   volume-sdb-bin:
     name: volume-sdb-bin
   volume-com.docker.devenvironments.code:
-   name: volume-com.docker.devenvironments.code
+    name: volume-com.docker.devenvironments.code
 
   
   
