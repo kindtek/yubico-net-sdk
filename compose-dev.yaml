@@ -23,25 +23,25 @@ services:
   #       constraints: [node.platform.os == linux]
 
 
-  # web:
-  #   entrypoint:
-  #   - sleep
-  #   - infinity
-  #   image: mono:latest
-  #   init: true
-  #   ports:
-  #   - "8080:8080"
-  #   volumes:
-  #   - type: volume
-  #     source: volume-docker-sock
-  #     target: /var/run/docker.sock
+  web:
+    entrypoint:
+    - sleep
+    - infinity
+    image: docker/dev-environments-default:stable-1
+    init: true
+    ports:
+    - "8080:8080"
+    volumes:
+    - type: volume
+      source: volume-docker-sock
+      target: /var/run/docker.sock
       
   yubi:
     command:
     - infinity
     entrypoint:
     - sleep
-    image: mono:latest
+    image: docker/dev-environments-default:stable-1
     #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
     init: true
     labels:
@@ -119,7 +119,7 @@ services:
     - sleep
     #command:
     #- "apt-get upgrade" #" && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
-    image: mono:latest
+    image: docker/dev-environments-default:stable-1
     init: true
     labels:
       com.docker.devenvironments: "true"
