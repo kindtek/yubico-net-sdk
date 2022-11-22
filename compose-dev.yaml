@@ -33,7 +33,7 @@ services:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      om.docker.devenvironments.container.name: sdb
+      com.docker.devenvironments.container.name: sdb
 
     # ports:
     # - "8080:8080"
