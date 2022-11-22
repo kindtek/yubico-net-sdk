@@ -92,7 +92,7 @@ services:
 
   sol:
     command:
-    - "apt-get update -y && apt-get install -y wget"
+    - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
     - "/usr/bin/solana-run.sh"
     image: solanalabs/solana:stable
@@ -121,10 +121,9 @@ services:
     - "yubi"
     command:
     - infinity
+    #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
     entrypoint:
     - sleep
-    # command:
-    # - "apt-get upgrade" #" && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
     image: docker/dev-environments-default:stable-1
     init: true
     labels:
