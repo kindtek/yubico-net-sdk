@@ -63,6 +63,34 @@ services:
     - type: volume
       source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
       target: /home/vscode
+  py:
+    command:
+    - infinity
+    entrypoint:
+    - sleep
+    image: python
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: yubico-net-sdk-distracted_rubin
+    networks:
+      default: null
+    stop_signal: SIGKILL
+    volumes:
+    - type: volume
+      source: volume-yubico-net-sdk-distracted_rubin-sol
+      target: /usr/bin
+    - type: volume
+      source: volume-docker-sock
+      target: /var/run/docker.sock
+    - type: volume
+      source: volume-yubico-net-sdk-distracted_rubin
+      target: /com.docker.devenvironments.code
+    - type: volume
+      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+      target: /home/vscode
   sol:
     command:
     - "apt-get update -qq && apt-get install -yq wget"
