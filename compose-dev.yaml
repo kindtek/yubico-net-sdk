@@ -22,7 +22,6 @@ services:
   #     placement:
   #       constraints: [node.platform.os == linux]
 
-
   # web:
   #   entrypoint:
   #   - sleep
@@ -94,15 +93,15 @@ services:
     # depends_on:
     # - "yubi"
     command:
-    # - infinity
-    - "apt-get update -qq && apt-get install -yq wget"
+      # - infinity
+      - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    # - sleep
-    - "/usr/bin/solana-run.sh"
+      # - sleep
+      - "/usr/bin/solana-run.sh"
 
     image: solanalabs/solana:stable
     ports:
-    - "8899:8899"
+      - "8899:8899"
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -113,21 +112,21 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-    - type: volume
-      source: volume-sdb-docker-sock
-      target: /run/docker.sock
-    - type: volume
-      source: volume-sdb-bin
-      target: /usr/bin
+      - type: volume
+        source: volume-sdb-docker-sock
+        target: /run/docker.sock
+      - type: volume
+        source: volume-sdb-bin
+        target: /usr/bin
 
   app:
     depends_on:
-    - "sol"
+      - "sol"
     command:
-    - infinity
+      - infinity
     #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
     entrypoint:
-    - sleep
+      - sleep
     image: docker/dev-environments-default:stable-1
     init: true
     labels:
@@ -139,16 +138,15 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-    - type: volume
-      source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-bin
-      target: /usr/bin
-    - type: volume
-      source: volume-com.docker.devenvironments.code
-      target: /com.docker.devenvironments.code
-    
+      - type: volume
+        source: volume-sdb-docker-sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: volume-sdb-bin
+        target: /usr/bin
+      - type: volume
+        source: volume-com.docker.devenvironments.code
+        target: /com.docker.devenvironments.code
 
 networks:
   default:
@@ -167,8 +165,3 @@ volumes:
     name: volume-com.docker.devenvironments.code
   volume-sdb-vscode:
     name: volume-sdb-vscode
-
-  
-  
-
-
