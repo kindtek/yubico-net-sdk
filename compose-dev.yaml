@@ -29,11 +29,6 @@ services:
     - infinity
     image: docker/dev-environments-default:stable-1
     init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
     ports:
     - "8080:8080"
     volumes:
@@ -126,11 +121,11 @@ services:
     #- "apt-get upgrade" #" && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
     image: docker/dev-environments-default:stable-1
     init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
+    # labels:
+    #   com.docker.devenvironments: "true"
+    #   com.docker.devenvironments.compose: "true"
+    #   com.docker.devenvironments.container: "true"
+    #   com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
