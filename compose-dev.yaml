@@ -1,192 +1,154 @@
-version: "3.8"
-# name: sdb
+name: yubico-net-sdk-objective_jemison
 services:
-  # agent:
-  #   image: portainer/agent
-  #   environment:
-  #     AGENT_CLUSTER_ADDR: tasks.agent
-  #     CAP_HOST_MANAGEMENT: 1
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - /var/lib/docker/volumes:/var/lib/docker/volumes
-  #     - /:/host
-  #   ports:
-  #     - target: 9001
-  #       published: 9001
-  #       protocol: tcp
-  #       mode: host
-  #   networks:
-  #     - portainer_agent
-  #   deploy:
-  #     mode: global
-  #     placement:
-  #       constraints: [node.platform.os == linux]
-
-
-  # web:
-  #   entrypoint:
-  #   - sleep
-  #   - infinity
-  #   image: mono:latest
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.container.name: sdb-web
-
-  #   # ports:
-  #   # - "8080:8080"
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  # py:
-  #   command:
-  #   - infinity
-  #   entrypoint:
-  #   - sleep
-  #   image: python
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb-py
-  #   networks:
-  #     default: null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  #   - type: volume
-  #     source: volume-sdb-bin
-  #     target: /usr/bin
-  #   - type: volume
-  #     source: volume-com.docker.devenvironments.code
-  #     target: /com.docker.devenvironments.code
-  #   - type: volume
-  #     source: volume-sdb-vscode
-  #     target: /home/vscode
-
-  # yubi:
-  #   depends_on:
-  #   - "py"
-  #   command:
-  #   - infinity
-  #   entrypoint:
-  #   - sleep
-  #   image: docker/dev-environments-default:stable-1
-  #   #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb-yubi
-  #   networks:
-  #     default: null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  #   - type: volume
-  #     source: volume-sdb-bin
-  #     target: /usr/bin
-  #   - type: volume
-  #     source: volume-com.docker.devenvironments.code
-  #     target: /com.docker.devenvironments.code
-  #   - type: volume
-  #     source: volume-sdb-vscode
-  #     target: /home/vscode
-
-  # sol:
-  #   command:
-  #   - "apt-get update -q && apt-get install -y wget"
-  #   entrypoint:
-  #   - "/usr/bin/solana-run.sh"
-  #   image: solanalabs/solana:stable
-  #   ports:
-  #   - "8899:8899"
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb-sol
-  #   networks:
-  #     default: null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  #   - type: volume
-  #     source: volume-sdb-bin
-  #     target: /usr/bin
-  #   - type: volume
-  #     source: volume-com.docker.devenvironments.code
-  #     target: /com.docker.devenvironments.code
-  #   - type: volume
-  #     source: volume-sdb-vscode
-  #     target: /home/vscode
-
   app:
-    # depends_on:
-    # - "sol"
-    # - "yubi"
     command:
     - infinity
+    depends_on:
+     - "py"
+     - "sol"
+     - "yubi"
+  
     entrypoint:
     - sleep
-    # command:
-    # - "apt-get upgrade" #" && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
     image: docker/dev-environments-default:stable-1
     init: true
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
+      com.docker.devenvironments.name: yubico-net-sdk-objective_jemison
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-bin
+      source: volume-sdb-sol
       target: /usr/bin
     - type: volume
-      source: volume-com.docker.devenvironments.code
+      source: volume-sdb-py
+      target: /usr/bin
+    - type: volume
+      source: volume-docker-sock
+      target: /var/run/docker.sock
+    - type: volume
+      source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
       source: volume-sdb-vscode
       target: /home/vscode
-    
-
+  py:
+    command:
+    - infinity
+    entrypoint:
+    - sleep
+    image: python
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: yubico-net-sdk-objective_jemison
+    networks:
+      default: null
+    stop_signal: SIGKILL
+    volumes:
+    - type: volume
+      source: volume-sdb-py
+      target: /usr/bin
+  sol:
+    command:
+    - apt-get update -q && apt-get install -y wget
+    entrypoint:
+    - /usr/bin/solana-run.sh
+    image: solanalabs/solana:stable
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: yubico-net-sdk-objective_jemison
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 8899
+      published: "8899"
+      protocol: tcp
+    stop_signal: SIGKILL
+    volumes:
+    - type: volume
+      source: volume-sdb-sol
+      target: /usr/bin
+  web:
+    command:
+    - infinity
+    entrypoint:
+    - sleep
+    image: docker/dev-environments-default:stable-1
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: yubico-net-sdk-objective_jemison
+    networks:
+      default: null
+    stop_signal: SIGKILL
+    volumes:
+    - type: volume
+      source: volume-docker-sock
+      target: /var/run/docker.sock
+    - type: volume
+      source: volume-yubico-net-sdk-objective_jemison
+      target: /com.docker.devenvironments.code
+    - type: volume
+      source: vsCodeServerVolume-yubico-net-sdk-objective_jemison-web
+      target: /home/vscode
+  yubi:
+    command:
+    - infinity
+    entrypoint:
+    - sleep
+    image: docker/dev-environments-default:stable-1
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: yubico-net-sdk-objective_jemison
+    networks:
+      default: null
+    stop_signal: SIGKILL
+    volumes:
+    - type: volume
+      source: volume-sdb-sol
+      target: /usr/bin
+    - type: volume
+      source: volume-docker-sock
+      target: /var/run/docker.sock
+    - type: volume
+      source: volume-sdb-dev
+      target: /com.docker.devenvironments.code
+    - type: volume
+      source: volume-sdb-vscode
+      target: /home/vscode
 networks:
   default:
     name: default-net
     attachable: true
-  # portainer_agent:
-  #   driver: overlay
-  #   attachable: true
-
 volumes:
-  volume-sdb-docker-sock:
-    name: volume-sdb-docker-sock
-  volume-sdb-bin:
-    name: volume-sdb-bin
-  volume-com.docker.devenvironments.code:
-    name: volume-com.docker.devenvironments.code
+  volume-docker-sock:
+    name: volume-docker-sock
+  volume-sdb-dev:
+    name: volume-sdb-dev
+  volume-sdb-py:
+    name: volume-sdb-py
+  volume-sdb-sol:
+    name: volume-sdb-sol
   volume-sdb-vscode:
     name: volume-sdb-vscode
-
-  
-  
-
-
+  volume-yubico-net-sdk-objective_jemison:
+    name: volume-yubico-net-sdk-objective_jemison
+    external: true
+  vsCodeServerVolume-yubico-net-sdk-objective_jemison-web:
+    name: vsCodeServerVolume-yubico-net-sdk-objective_jemison-web
