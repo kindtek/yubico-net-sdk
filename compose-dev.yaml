@@ -111,21 +111,21 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-      - type: volume
-        source: volume-sdb-docker-sock
-        target: /var/run/docker.sock
+      # - type: volume
+      #   source: volume-sdb-docker-sock
+      #   target: /var/run/docker.sock
       - type: volume
         source: volume-sdb-bin
         target: /usr/bin
 
   app:
-  #   # depends_on:
-  #   #   - "sol"
-  #   command:
-  #     - infinity
-  #   #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
-  #   entrypoint:
-  #     - sleep
+    #   # depends_on:
+    #   #   - "sol"
+    #   command:
+    #     - infinity
+    #   #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
+    #   entrypoint:
+    #     - sleep
     image: docker/dev-environments-default:stable-1
     init: true
     # labels:
@@ -147,17 +147,17 @@ services:
   #       source: volume-com.docker.devenvironments.code
   #       target: /com.docker.devenvironments.code
 
-# networks:
-#   default:
-#     name: default-net
-#     attachable: true
-#   # portainer_agent:
-#   #   driver: overlay
-#   #   attachable: true
+  # networks:
+  #   default:
+  #     name: default-net
+  #     attachable: true
+  #   # portainer_agent:
+  #   #   driver: overlay
+  #   #   attachable: true
 
-# volumes:
-#   volume-sdb-docker-sock:
-#     name: volume-sdb-docker-sock
+  # volumes:
+  #   volume-sdb-docker-sock:
+  #     name: volume-sdb-docker-sock
   volume-sdb-bin:
     name: volume-sdb-bin
   # volume-com.docker.devenvironments.code:
