@@ -63,12 +63,6 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
-    - type: volume
-      source: volume-com.docker.devenvironments.code
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
 
   yubi:
     depends_on:
@@ -95,12 +89,6 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
-    - type: volume
-      source: volume-com.docker.devenvironments.code
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
 
   sol:
     command:
@@ -126,12 +114,6 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
-    - type: volume
-      source: volume-com.docker.devenvironments.code
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
 
   app:
     depends_on:
@@ -160,12 +142,6 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
-    - type: volume
-      source: volume-com.docker.devenvironments.code
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
     
 
 networks:
