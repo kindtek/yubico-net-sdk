@@ -90,16 +90,15 @@ services:
   #     target: /usr/bin
 
   sol:
-    # depends_on:
-    # - "yubi"
-    command:
-      # - infinity
-      - "apt-get update -q"
-    entrypoint:
-      # - sleep
-      - "/usr/bin/solana-run.sh"
-
-    image: solanalabs/solana:stable
+    # # depends_on:
+    # # - "yubi"
+    # command:
+    #   # - infinity
+    #   - "apt-get update -q"
+    # entrypoint:
+    #   # - sleep
+    #   - "/usr/bin/solana-run.sh"
+    image: solanalabs/solana:v1.14.8
     ports:
       - "8899:8899"
     init: true
@@ -120,8 +119,8 @@ services:
         target: /usr/bin
 
   app:
-    depends_on:
-      - "sol"
+    # depends_on:
+    #   - "sol"
     command:
       - infinity
     #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
@@ -161,7 +160,7 @@ volumes:
     name: volume-sdb-docker-sock
   volume-sdb-bin:
     name: volume-sdb-bin
-  volume-com.docker.devenvironments.code:
-    name: volume-com.docker.devenvironments.code
-  volume-sdb-vscode:
-    name: volume-sdb-vscode
+  # volume-com.docker.devenvironments.code:
+  #   name: volume-com.docker.devenvironments.code
+  # volume-sdb-vscode:
+  #   name: volume-sdb-vscode
