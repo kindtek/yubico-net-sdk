@@ -1,5 +1,5 @@
 version: "3.8"
-# name: yubico-net-sdk-distracted_rubin
+# name: sdb
 services:
   # agent:
   #   image: portainer/agent
@@ -46,22 +46,22 @@ services:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: yubico-net-sdk-distracted_rubin
+      com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
+      source: volume-sdb-sol
       target: /usr/bin
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
+      source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+      source: volume-sdb-dev-app
       target: /home/vscode
   py:
     command:
@@ -74,22 +74,22 @@ services:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: yubico-net-sdk-distracted_rubin
+      com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
+      source: volume-sdb-sol
       target: /usr/bin
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
+      source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+      source: volume-sdb-dev-app
       target: /home/vscode
   sol:
     command:
@@ -104,22 +104,22 @@ services:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: yubico-net-sdk-distracted_rubin
+      com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
+      source: volume-sdb-sol
       target: /usr/bin
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
+      source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+      source: volume-sdb-dev-app
       target: /home/vscode
   app:
     depends_on:
@@ -136,40 +136,40 @@ services:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: yubico-net-sdk-distracted_rubin
+      com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
+      source: volume-sdb-sol
       target: /usr/bin
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
+      source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+      source: volume-sdb-dev-app
       target: /home/vscode
 networks:
   default:
-    name: yubico-net-sdk-distracted_rubin_default-net-5
+    name: default-net
     attachable: true
   # portainer_agent:
   #   driver: overlay
   #   attachable: true
 
 volumes:
-  volume-yubico-net-sdk-distracted_rubin:
-    name: volume-yubico-net-sdk-distracted_rubin
+  volume-sdb-dev:
+    name: volume-sdb-dev
     #external: true
-  vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app:
-    name: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+  volume-sdb-dev-app:
+    name: volume-sdb-dev-app
     #external: true
-  volume-yubico-net-sdk-distracted_rubin-sol:
-    name: volume-yubico-net-sdk-distracted_rubin-sol
+  volume-sdb-sol:
+    name: volume-sdb-sol
     #external: true
   volume-docker-sock:
     name: volume-docker-sock
