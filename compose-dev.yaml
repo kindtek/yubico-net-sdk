@@ -11,7 +11,7 @@ services:
     volumes:
       - volume-sdb-bin:/usr/bin
   app:
-    image: docker/dev-environments-default:stable-1
+    image: debian:bullseye
     init: true
     networks:
       default: null
