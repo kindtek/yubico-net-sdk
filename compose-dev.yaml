@@ -112,7 +112,7 @@ services:
     - "yubi"
     - "py"
     command:
-    - "apt-get update -q && apt-get upgrade" # && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
+    - "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
     image: docker/dev-environments-default:stable-1
     init: true
     labels:
