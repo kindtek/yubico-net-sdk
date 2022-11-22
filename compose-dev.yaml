@@ -155,7 +155,7 @@ services:
   #   #   driver: overlay
   #   #   attachable: true
 
-  # volumes:
+  volumes:
   #   volume-sdb-docker-sock:
   #     name: volume-sdb-docker-sock
   volume-sdb-bin:
