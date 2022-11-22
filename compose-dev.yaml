@@ -41,64 +41,64 @@ services:
   #   - type: volume
   #     source: volume-sdb-docker-sock
   #     target: /var/run/docker.sock
-  py:
-    command:
-    - infinity
-    entrypoint:
-    - sleep
-    image: python
-    init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb-py
-    networks:
-      default: null
-    stop_signal: SIGKILL
-    volumes:
-    - type: volume
-      source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-bin
-      target: /usr/bin
+  # py:
+  #   command:
+  #   - infinity
+  #   entrypoint:
+  #   - sleep
+  #   image: python:3.9
+  #   init: true
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb-py
+  #   networks:
+  #     default: null
+  #   stop_signal: SIGKILL
+  #   volumes:
+  #   - type: volume
+  #     source: volume-sdb-docker-sock
+  #     target: /var/run/docker.sock
+  #   - type: volume
+  #     source: volume-sdb-bin
+  #     target: /usr/bin
 
-  yubi:
-    depends_on:
-    - "py"
-    command:
-    - infinity
-    entrypoint:
-    - sleep
-    image: docker/dev-environments-default:stable-1
-    #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
-    init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb-yubi
-    networks:
-      default: null
-    stop_signal: SIGKILL
-    volumes:
-    - type: volume
-      source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-bin
-      target: /usr/bin
+  # yubi:
+  #   depends_on:
+  #   - "py"
+  #   command:
+  #   - infinity
+  #   entrypoint:
+  #   - sleep
+  #   image: mono:latest
+  #   #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
+  #   init: true
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb-yubi
+  #   networks:
+  #     default: null
+  #   stop_signal: SIGKILL
+  #   volumes:
+  #   - type: volume
+  #     source: volume-sdb-docker-sock
+  #     target: /var/run/docker.sock
+  #   - type: volume
+  #     source: volume-sdb-bin
+  #     target: /usr/bin
 
   sol:
     depends_on:
-    - "yubi"
+    # - "yubi"
     command:
-    - infinity
-    #- "apt-get update -qq && apt-get install -yq wget"
+    # - infinity
+    - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    - sleep
-    #- "/bin/bash /usr/bin/solana-run.sh"
+    # - sleep
+    - "/usr/bin/solana-run.sh"
 
     image: solanalabs/solana:stable
     ports:
@@ -115,7 +115,7 @@ services:
     volumes:
     - type: volume
       source: volume-sdb-docker-sock
-      target: /var/run/docker.sock
+      target: /run/docker.sock
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
@@ -145,6 +145,9 @@ services:
     - type: volume
       source: volume-sdb-bin
       target: /usr/bin
+    - type: volume
+      source: volume-com.docker.devenvironments.code
+      target: com.docker.devenvironments.code
     
 
 networks:
