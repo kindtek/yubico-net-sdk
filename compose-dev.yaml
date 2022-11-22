@@ -134,9 +134,9 @@ services:
   #     target: /home/vscode
 
   app:
-    depends_on:
-    - "sol"
-    - "yubi"
+    # depends_on:
+    # - "sol"
+    # - "yubi"
     command:
     - infinity
     entrypoint:
