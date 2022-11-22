@@ -91,7 +91,7 @@ services:
   #     target: /usr/bin
 
   sol:
-    depends_on:
+    # depends_on:
     # - "yubi"
     command:
     # - infinity
