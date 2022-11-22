@@ -119,7 +119,7 @@ services:
     networks:
       default: null
     stop_signal: SIGKILL
-  volumes:
+    volumes:
     - type: volume
       source: volume-sdb-docker-sock
       target: /var/run/docker.sock
