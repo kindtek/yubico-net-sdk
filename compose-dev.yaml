@@ -92,7 +92,7 @@ services:
 
   sol:
     command:
-    - "apt-get update -q && apt-get install -y wget"
+    - "apt-get update -y && apt-get install -y wget"
     entrypoint:
     - "/usr/bin/solana-run.sh"
     image: solanalabs/solana:stable
