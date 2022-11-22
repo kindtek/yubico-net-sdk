@@ -39,12 +39,6 @@ services:
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-dev
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
     
   yubi:
     command:
@@ -69,12 +63,6 @@ services:
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-dev
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
 
   py:
     command:
@@ -149,12 +137,7 @@ services:
     - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-dev
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-vscode
-      target: /home/vscode
+
 networks:
   default:
     name: default-net
@@ -166,12 +149,9 @@ networks:
 volumes:
   volume-docker-sock:
     name: volume-docker-sock
-  volume-sdb-dev:
-    name: volume-sdb-dev
   volume-sdb-sol:
     name: volume-sdb-sol
   volume-sdb-py:
     name: volume-sdb-py
-  volume-sdb-vscode:
-    name: volume-sdb-vscode
+
 
