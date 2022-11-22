@@ -61,7 +61,7 @@ services:
       source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: volume-sdb-dev-app
+      source: volume-sdb-vscode
       target: /home/vscode
   py:
     command:
@@ -80,17 +80,8 @@ services:
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-sdb-sol
+      source: volume-sdb-py
       target: /usr/bin
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-sdb-dev
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: volume-sdb-dev-app
-      target: /home/vscode
   sol:
     command:
     - "apt-get update -qq && apt-get install -yq wget"
@@ -119,12 +110,13 @@ services:
       source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: volume-sdb-dev-app
+      source: volume-sdb-vscode
       target: /home/vscode
   app:
     depends_on:
     - "sol"
     - "yubi"
+    - "py"
 #    - "agent"
     command:
     - infinity
@@ -145,13 +137,16 @@ services:
       source: volume-sdb-sol
       target: /usr/bin
     - type: volume
+      source: volume-sdb-py
+      target: /usr/bin
+    - type: volume
       source: volume-docker-sock
       target: /var/run/docker.sock
     - type: volume
       source: volume-sdb-dev
       target: /com.docker.devenvironments.code
     - type: volume
-      source: volume-sdb-dev-app
+      source: volume-sdb-vscode
       target: /home/vscode
 networks:
   default:
@@ -164,13 +159,11 @@ networks:
 volumes:
   volume-sdb-dev:
     name: volume-sdb-dev
-    #external: true
-  volume-sdb-dev-app:
-    name: volume-sdb-dev-app
-    #external: true
+  volume-sdb-vscode:
+    name: volume-sdb-vscode
   volume-sdb-sol:
     name: volume-sdb-sol
-    #external: true
+  volume-sdb-py:
+    name: volume-sdb-py
   volume-docker-sock:
     name: volume-docker-sock
-    #external: true
