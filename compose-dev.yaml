@@ -110,15 +110,15 @@ services:
     networks:
       default: null
     stop_signal: SIGKILL
-    # volumes:
-    #   - type: volume
-    #     source: volume-sdb-docker-sock
-    #     target: /var/run/docker.sock
-    #   - type: volume
-    #     source: volume-sdb-bin
-    #     target: /usr/bin
+    volumes:
+      - type: volume
+        source: volume-sdb-docker-sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: volume-sdb-bin
+        target: /usr/bin
 
-  # app:
+  app:
   #   # depends_on:
   #   #   - "sol"
   #   command:
@@ -126,23 +126,23 @@ services:
   #   #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
   #   entrypoint:
   #     - sleep
-  #   image: docker/dev-environments-default:stable-1
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb
+    image: docker/dev-environments-default:stable-1
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb
   #   networks:
   #     default: null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #     - type: volume
-  #       source: volume-sdb-docker-sock
-  #       target: /var/run/docker.sock
-  #     - type: volume
-  #       source: volume-sdb-bin
-  #       target: /usr/bin
+    stop_signal: SIGKILL
+    volumes:
+      - type: volume
+        source: volume-sdb-docker-sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: volume-sdb-bin
+        target: /usr/bin
   #     - type: volume
   #       source: volume-com.docker.devenvironments.code
   #       target: /com.docker.devenvironments.code
@@ -155,11 +155,11 @@ services:
 #   #   driver: overlay
 #   #   attachable: true
 
-# volumes:
-#   volume-sdb-docker-sock:
-#     name: volume-sdb-docker-sock
-#   volume-sdb-bin:
-#     name: volume-sdb-bin
+volumes:
+  volume-sdb-docker-sock:
+    name: volume-sdb-docker-sock
+  volume-sdb-bin:
+    name: volume-sdb-bin
   # volume-com.docker.devenvironments.code:
   #   name: volume-com.docker.devenvironments.code
   #   external: true
