@@ -86,9 +86,6 @@ services:
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-sdb-bin
-      target: /usr/bin
-    - type: volume
       source: volume-sdb-docker-sock
       target: /var/run/docker.sock
 
