@@ -70,6 +70,7 @@ services:
       target: /usr/bin
   app:
     depends_on:
+    - "py"
     - "sol"
     - "yubi"
     command:
@@ -89,6 +90,32 @@ services:
     volumes_from:
     - sol
     - yubi
+  py:
+    command:
+      - infinity
+    entrypoint:
+    - sleep
+    image: python:latest
+    init: true
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: yubico-net-sdk-distracted_rubin
+    networks:
+      default: null
+    stop_signal: SIGKILL
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+    - type: volume
+      source: volume-yubico-net-sdk-distracted_rubin
+      target: /com.docker.devenvironments.code
+    - type: volume
+      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+      target: /home/vscode
+
 networks:
   default:
     name: yubico-net-sdk-distracted_rubin_default
