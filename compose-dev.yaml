@@ -94,10 +94,10 @@ services:
     depends_on:
     - "yubi"
     command:
-    - sleep
+    - inifinity
     #- "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    - infinity
+    - sleep
     #- "/bin/bash /usr/bin/solana-run.sh"
 
     image: solanalabs/solana:stable
