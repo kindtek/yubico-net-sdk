@@ -90,12 +90,13 @@ services:
     volumes_from:
     - sol
     - yubi
+    - py
   py:
     command:
       - infinity
     entrypoint:
     - sleep
-    image: python:latest
+    image: python
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -106,15 +107,9 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-    - type: bind
-      source: /var/run/docker.sock
-      target: /var/run/docker.sock
     - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
-      target: /home/vscode
+      source: volume-yubico-net-sdk-distracted_rubin-py
+      target: /usr/bin
 
 networks:
   default:
