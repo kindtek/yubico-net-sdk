@@ -66,9 +66,7 @@ services:
 
   py:
     command:
-    - infinity
-    entrypoint:
-    - sleep
+    - "apt-get update -qq && apt-get install python3-pip"
     image: python
     init: true
     labels:
