@@ -23,18 +23,18 @@ services:
   #       constraints: [node.platform.os == linux]
 
 
-  web:
-    entrypoint:
-    - sleep
-    - infinity
-    image: docker/dev-environments-default:stable-1
-    init: true
-    ports:
-    - "8080:8080"
-    volumes:
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
+  # web:
+  #   entrypoint:
+  #   - sleep
+  #   - infinity
+  #   image: mono:latest
+  #   init: true
+  #   ports:
+  #   - "8080:8080"
+  #   volumes:
+  #   - type: volume
+  #     source: volume-docker-sock
+  #     target: /var/run/docker.sock
       
   yubi:
     command:
@@ -119,13 +119,13 @@ services:
     - sleep
     #command:
     #- "apt-get upgrade" #" && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
-    image: docker/dev-environments-default:stable-1
+    image: mono:latest
     init: true
-    # labels:
-    #   com.docker.devenvironments: "true"
-    #   com.docker.devenvironments.compose: "true"
-    #   com.docker.devenvironments.container: "true"
-    #   com.docker.devenvironments.name: sdb
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
