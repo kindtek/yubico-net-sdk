@@ -102,11 +102,11 @@ services:
     ports:
       - "8899:8899"
     init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb-sol
+    # labels:
+    #   com.docker.devenvironments: "true"
+    #   com.docker.devenvironments.compose: "true"
+    #   com.docker.devenvironments.container: "true"
+    #   com.docker.devenvironments.name: sdb-sol
     networks:
       default: null
     stop_signal: SIGKILL
@@ -128,18 +128,18 @@ services:
   #     - sleep
     image: docker/dev-environments-default:stable-1
     init: true
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
-  #   networks:
-  #     default: null
+    # labels:
+    #   com.docker.devenvironments: "true"
+    #   com.docker.devenvironments.compose: "true"
+    #   com.docker.devenvironments.container: "true"
+    #   com.docker.devenvironments.name: sdb
+    networks:
+      default: null
     stop_signal: SIGKILL
     volumes:
-      - type: volume
-        source: volume-sdb-docker-sock
-        target: /var/run/docker.sock
+      # - type: volume
+      #   source: volume-sdb-docker-sock
+      #   target: /var/run/docker.sock
       - type: volume
         source: volume-sdb-bin
         target: /usr/bin
@@ -155,9 +155,9 @@ services:
 #   #   driver: overlay
 #   #   attachable: true
 
-volumes:
-  volume-sdb-docker-sock:
-    name: volume-sdb-docker-sock
+# volumes:
+#   volume-sdb-docker-sock:
+#     name: volume-sdb-docker-sock
   volume-sdb-bin:
     name: volume-sdb-bin
   # volume-com.docker.devenvironments.code:
