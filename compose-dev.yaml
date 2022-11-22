@@ -64,12 +64,12 @@ services:
       source: volume-sdb-vscode
       target: /home/vscode
 
-  py:
+  py-ykman:
     command:
     - infinity
     entrypoint:
     - sleep
-    image: python
+    image: mono:latest
     init: true
     labels:
       com.docker.devenvironments: "true"
