@@ -66,7 +66,7 @@ services:
 
   py:
     command:
-    - "apt-get update -qq && apt-get install -yq python3-pip"
+    - "apt-get update -qq && apt-get install -y python3-pip pcscd swig libpcsclite1 python-pycparser"
     image: python
     init: true
     labels:
