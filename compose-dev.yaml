@@ -9,7 +9,7 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-      - volume-sdb-bin: /usr/bin
+      - volume-sdb-bin:/usr/bin
   app:
     image: docker/dev-environments-default:stable-1
     init: true
@@ -17,6 +17,6 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-      - volume-sdb-bin:  /usr/bin
+      - volume-sdb-bin:/usr/bin
 volumes:
   volume-sdb-bin:
