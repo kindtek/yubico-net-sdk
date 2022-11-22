@@ -39,7 +39,10 @@ services:
     # - "8080:8080"
     volumes:
     - type: volume
-      source: volume-docker-sock
+      source: volume-sdb-web
+      target: /usr/bin
+    - type: volume
+      source: volume-docker-sock-web
       target: /var/run/docker.sock
     
   yubi:
@@ -60,10 +63,10 @@ services:
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-sdb-py
+      source: volume-sdb-yubi
       target: /usr/bin
     - type: volume
-      source: volume-docker-sock
+      source: volume-docker-sock-yubi
       target: /var/run/docker.sock
 
   py:
@@ -85,6 +88,9 @@ services:
     - type: volume
       source: volume-sdb-py
       target: /usr/bin
+    - type: volume
+      source: volume-docker-sock-py
+      target: /var/run/docker.sock
 
   sol:
     command:
@@ -107,6 +113,9 @@ services:
     - type: volume
       source: volume-sdb-sol
       target: /usr/bin
+    - type: volume
+      source: volume-docker-sock-sol
+      target: /var/run/docker.sock
 
   app:
     depends_on:
@@ -131,13 +140,10 @@ services:
     stop_signal: SIGKILL
     volumes:
     - type: volume
-      source: volume-sdb-sol
+      source: volume-sdb-app
       target: /usr/bin
     - type: volume
-      source: volume-sdb-py
-      target: /usr/bin
-    - type: volume
-      source: volume-docker-sock
+      source: volume-docker-sock-app
       target: /var/run/docker.sock
 
 networks:
@@ -149,11 +155,27 @@ networks:
   #   attachable: true
 
 volumes:
-  volume-docker-sock:
-    name: volume-docker-sock
-  volume-sdb-sol:
-    name: volume-sdb-sol
+  volume-docker-sock-app:
+    name: volume-docker-sock-app
+  volume-docker-sock-web:
+    name: volume-docker-sock-web
+  volume-docker-sock-py:
+    name: volume-docker-sock-py
+  volume-docker-sock-yubi:
+    name: volume-docker-sock-yubi
+  volume-docker-sock-sol:
+    name: volume-docker-sock-sol
+  volume-sdb-app:
+    name: volume-sdb-app
+  volume-sdb-web:
+    name: volume-sdb-web
   volume-sdb-py:
     name: volume-sdb-py
+  volume-sdb-yubi:
+    name: volume-sdb-yubi
+  volume-sdb-sol:
+    name: volume-sdb-sol
+  
+  
 
 
