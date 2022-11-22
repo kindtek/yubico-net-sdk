@@ -17,6 +17,6 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-      - volume-sdb-bin:/usr/bin
+      - volume-sdb-bin:/usr/local/bin
 volumes:
   volume-sdb-bin:
