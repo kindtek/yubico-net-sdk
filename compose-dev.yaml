@@ -158,7 +158,7 @@ services:
 
   volumes:
     volume-sdb-bin:
-    name: volume-sdb-bin
+    # name: volume-sdb-bin
   #   volume-sdb-docker-sock: 
   #     name: volume-sdb-docker-sock
 
