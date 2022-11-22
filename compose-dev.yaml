@@ -160,7 +160,7 @@ volumes:
     name: volume-sdb-docker-sock
   volume-sdb-bin:
     name: volume-sdb-bin
-  # volume-com.docker.devenvironments.code:
-  #   name: volume-com.docker.devenvironments.code
+  volume-com.docker.devenvironments.code:
+    name: volume-com.docker.devenvironments.code
   # volume-sdb-vscode:
   #   name: volume-sdb-vscode
