@@ -111,12 +111,13 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-      # - type: volume
-      #   source: volume-sdb-docker-sock
-      #   target: /var/run/docker.sock
       - type: volume
         source: volume-sdb-bin
         target: /usr/bin
+      # - type: volume
+      #   source: volume-sdb-docker-sock
+      #   target: /var/run/docker.sock
+      
 
   app:
     #   # depends_on:
@@ -137,29 +138,30 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-      # - type: volume
-      #   source: volume-sdb-docker-sock
-      #   target: /var/run/docker.sock
       - type: volume
         source: volume-sdb-bin
         target: /usr/bin
-  #     - type: volume
-  #       source: volume-com.docker.devenvironments.code
-  #       target: /com.docker.devenvironments.code
+        # - type: volume
+        #   source: volume-sdb-docker-sock
+        #   target: /var/run/docker.sock
+        #     - type: volume
+        #       source: volume-com.docker.devenvironments.code
+        #       target: /com.docker.devenvironments.code
 
-  # networks:
-  #   default:
-  #     name: default-net
-  #     attachable: true
-  #   # portainer_agent:
-  #   #   driver: overlay
-  #   #   attachable: true
+        # networks:
+        #   default:
+        #     name: default-net
+        #     attachable: true
+        #   # portainer_agent:
+        #   #   driver: overlay
+        #   #   attachable: true
 
   volumes:
-  #   volume-sdb-docker-sock:
+    volume-sdb-bin:
+    name: volume-sdb-bin
+  #   volume-sdb-docker-sock: 
   #     name: volume-sdb-docker-sock
-  volume-sdb-bin:
-    # name: volume-sdb-bin
+
   # volume-com.docker.devenvironments.code:
   #   name: volume-com.docker.devenvironments.code
   #   external: true
