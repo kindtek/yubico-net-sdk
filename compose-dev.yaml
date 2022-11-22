@@ -95,7 +95,7 @@ services:
     command:
     - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    - "/bin/bash /usr/bin/solana-run.sh"
+    - ""
     image: solanalabs/solana:stable
     ports:
     - "8899:8899"
