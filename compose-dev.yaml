@@ -94,7 +94,7 @@ services:
     depends_on:
     - "yubi"
     command:
-    - inifinity
+    - infinity
     #- "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
     - sleep
