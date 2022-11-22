@@ -1,169 +1,22 @@
 version: "3.8"
-# name: sdb
 services:
-  # agent:
-  #   image: portainer/agent
-  #   environment:
-  #     AGENT_CLUSTER_ADDR: tasks.agent
-  #     CAP_HOST_MANAGEMENT: 1
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - /var/lib/docker/volumes:/var/lib/docker/volumes
-  #     - /:/host
-  #   ports:
-  #     - target: 9001
-  #       published: 9001
-  #       protocol: tcp
-  #       mode: host
-  #   networks:
-  #     - portainer_agent
-  #   deploy:
-  #     mode: global
-  #     placement:
-  #       constraints: [node.platform.os == linux]
-
-  # web:
-  #   entrypoint:
-  #   - sleep
-  #   - infinity
-  #   image: mono:latest
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.container.name: sdb-web
-
-  #   # ports:
-  #   # - "8080:8080"
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  # py:
-  #   command:
-  #   - infinity
-  #   entrypoint:
-  #   - sleep
-  #   image: python:3.9
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb-py
-  #   networks:
-  #     default: null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  #   - type: volume
-  #     source: volume-sdb-bin
-  #     target: /usr/bin
-
-  # yubi:
-  #   depends_on:
-  #   - "py"
-  #   command:
-  #   - infinity
-  #   entrypoint:
-  #   - sleep
-  #   image: mono:latest
-  #   #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
-  #   init: true
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb-yubi
-  #   networks:
-  #     default: null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #   - type: volume
-  #     source: volume-sdb-docker-sock
-  #     target: /var/run/docker.sock
-  #   - type: volume
-  #     source: volume-sdb-bin
-  #     target: /usr/bin
-
   sol:
-    # # depends_on:
-    # # - "yubi"
-    # command:
-    #   # - infinity
-    #   - "apt-get update -q"
-    # entrypoint:
-    #   # - sleep
-    #   - "/usr/bin/solana-run.sh"
     image: solanalabs/solana:v1.14.8
     ports:
       - "8899:8899"
     init: true
-    # labels:
-    #   com.docker.devenvironments: "true"
-    #   com.docker.devenvironments.compose: "true"
-    #   com.docker.devenvironments.container: "true"
-    #   com.docker.devenvironments.name: sdb-sol
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
-      - type: volume
-        source: volume-sdb-bin
-        target: /usr/bin
-      # - type: volume
-      #   source: volume-sdb-docker-sock
-      #   target: /var/run/docker.sock
-      
-
+      - volume-sdb-bin:/usr/bin
   app:
-    #   # depends_on:
-    #   #   - "sol"
-    #   command:
-    #     - infinity
-    #   #- "apt-get upgrade && apt-get install -y python3-venv python3-pip pcscd swig libpcsclite1 python-pycparser && ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip"
-    #   entrypoint:
-    #     - sleep
     image: docker/dev-environments-default:stable-1
     init: true
-    # labels:
-    #   com.docker.devenvironments: "true"
-    #   com.docker.devenvironments.compose: "true"
-    #   com.docker.devenvironments.container: "true"
-    #   com.docker.devenvironments.name: sdb
     networks:
       default: null
     stop_signal: SIGKILL
     volumes:
-      - type: volume
-        source: volume-sdb-bin
-        target: /usr/bin
-        # - type: volume
-        #   source: volume-sdb-docker-sock
-        #   target: /var/run/docker.sock
-        #     - type: volume
-        #       source: volume-com.docker.devenvironments.code
-        #       target: /com.docker.devenvironments.code
-
-        # networks:
-        #   default:
-        #     name: default-net
-        #     attachable: true
-        #   # portainer_agent:
-        #   #   driver: overlay
-        #   #   attachable: true
-
-  volumes:
-    volume-sdb-bin:
-    # name: volume-sdb-bin
-  #   volume-sdb-docker-sock: 
-  #     name: volume-sdb-docker-sock
-
-  # volume-com.docker.devenvironments.code:
-  #   name: volume-com.docker.devenvironments.code
-  #   external: true
-  # volume-sdb-vscode:
-  #   name: volume-sdb-vscode
+      - volume-sdb-bin:/usr/bin
+volumes:
+  volume-sdb-bin:
