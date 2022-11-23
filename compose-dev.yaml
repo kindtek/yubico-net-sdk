@@ -111,10 +111,13 @@ services:
     - "sol"
     # - "yubi"
     - "py-ykman"
-    command:
-    - "apt-get update -q"
     entrypoint:
-    - "/bin/bash"
+    - sleep
+    - infinity
+    # command:
+    # - "apt-get update -q"
+    # entrypoint:
+    # - "/bin/bash"
     image: docker/dev-environments-default:stable-1
     init: true
     labels:
