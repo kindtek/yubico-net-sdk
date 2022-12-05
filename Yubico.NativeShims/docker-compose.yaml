@@ -2,6 +2,8 @@ version: "3.8"
 
 services:
   yubi:
+    env_file:
+      - ../../sdb.env
     build:
       args:
         USER_ID: 1000
@@ -9,4 +11,4 @@ services:
         ARTIFACT_DIR: ubuntu-x64
       context: .
       dockerfile: docker/Ubuntu/Dockerfile
-    image: kindtek/yubico-safedb-ubuntu:0.0.4
+    image: "$SDB_YUB_DOCKER"

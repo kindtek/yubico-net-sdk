@@ -54,38 +54,38 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag kindtek/yubico-safedb-ubuntu:1.5.0-A.1-bionic-x64 \
+    --tag "$SDB_YUB_DOCKER_GENERAL"-x64 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --build-arg ARTIFACT_DIR=ubuntu-x64 \
-    --output type=local,dest=ubuntu-x64 \
+    --build-arg ARTIFACT_DIR="$SDB_YUB_ENV"-x64 \
+    --output type=local,dest="$SDB_YUB_ENV"-x64 \
     .
 
 # Distro: Ubuntu
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag kindtek/yubico-safedb-ubuntu:1.5.0-A.1-bionic-x86 \
+    --tag "$SDB_YUB_DOCKER_GENERAL"-x86 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --build-arg ARTIFACT_DIR=ubuntu-x86 \
-    --output type=local,dest=ubuntu-x86 \
+    --build-arg ARTIFACT_DIR="$SDB_YUB_ENV"-x86 \
+    --output type=local,dest="$SDB_YUB_ENV"-x86 \
     .
 
 # Distro: Ubuntu
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag kindtek/yubico-safedb-ubuntu:1.5.0-A.1-bionic-arm64 \
+    --tag "$SDB_YUB_DOCKER_GENERAL"-arm64 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --build-arg ARTIFACT_DIR=ubuntu-arm64 \
-    --output type=local,dest=ubuntu-arm64 \
+    --build-arg ARTIFACT_DIR="$SDB_YUB_ENV"-arm64 \
+    --output type=local,dest="$SDB_YUB_ENV"-arm64 \
     .
 
