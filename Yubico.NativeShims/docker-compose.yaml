@@ -13,4 +13,4 @@ services:
       context: .
       dockerfile: docker/Ubuntu/Dockerfile
     # TODO - MAKE IMAGE NAME DYNAMIC
-    image: $SDB_YUB_DOCKER_IMG
+    image: kindtek/yubico-safedb-ubuntu
