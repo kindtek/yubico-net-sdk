@@ -19,15 +19,6 @@ ENV PATH=/usr/local/bin:$PATH
 RUN groupadd -f -g ${GROUP_ID} local && useradd -o -u ${USER_ID} -g ${GROUP_ID} -s /bin/sh local
 
 
-# # add script for docker install
-# RUN apt-get update
-# RUN apt-get install curl
-# RUN curl -sSL https://get.docker.com/ | sh
-# #To run Docker as a non-privileged user, consider setting up the
-# #Docker daemon in rootless mode for your user:
-# #RUN dockerd-rootless-setuptool.sh install
-
-
 # Install build tools
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
@@ -85,8 +76,8 @@ RUN rm -rf artifacts
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
-RUN mkdir -p /home/build/artifacts/ubuntu-x64 \
-    && cp /home/build/build_out/*.so /home/build/artifacts/ubuntu-x64
+RUN mkdir -p /home/build/artifacts/$ARTIFACT_DIR \
+    && cp /home/build/build_out/*.so /home/build/artifacts/$ARTIFACT_DIR
 
 # Copy over the build artifacts to a blank image. This way we can easily retrieve the
 # build results without copying all of the previous image's filesystem. `Scratch` is
@@ -94,7 +85,7 @@ RUN mkdir -p /home/build/artifacts/ubuntu-x64 \
 # we care about into this blank space. The `--output` argument to the `docker` command
 # specifies what we do with this result.
 FROM scratch AS build_install
-COPY --from=build /home/build/artifacts/ubuntu-x64/ .
+COPY --from=build /home/build/artifacts/$ARTIFACT_DIR/ .
 
 
 
