@@ -7,9 +7,19 @@ services:
       - ../../../yub.env
     build:
       args:
-        USER_ID: 1000
-        GROUP_ID: 1000
-        ARTIFACT_DIR: ubuntu-x64
+        - YUB_BUILD=$YUBICO_BUILD
+        - YUB_BUILD_ENV=$YUBICO_BUILD_ENV
+        - YUB_BUILD_ENV_VERSION=$YUBICO_BUILD_ENV_VERSION
+        - YUB_BUILD_ENV_NAME=$YUBICO_BUILD_ENV_NAME
+        - YUB_DOCKER_IMG=$SDB_YUB_DOCKER_IMG
+        - YUB_DOCKER_TAG=$SDB_YUB_DOCKER_TAG
+        - YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
+        - YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
+        - YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
+        - YUB_DOCKER=$SDB_YUB_DOCKER
+        - USER_ID=1000 
+        - GROUP_ID=1000
+        - ARTIFACT_DIR=$YUBICO_BUILD_ENV-x64
       context: .
       dockerfile: docker/Ubuntu/Dockerfile
     # TODO - MAKE IMAGE NAME DYNAMIC
