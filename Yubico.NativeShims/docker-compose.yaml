@@ -3,8 +3,8 @@ version: "3.8"
 services:
   yubi:
     env_file:
-      - ../../../sdb.env
-      - ../../../yub.env
+      - ../../sdb.env
+      - ../../yub.env
     build:
       args:
         - YUB_BUILD=$YUBICO_BUILD
