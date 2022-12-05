@@ -12,4 +12,5 @@ services:
         ARTIFACT_DIR: ubuntu-x64
       context: .
       dockerfile: docker/Ubuntu/Dockerfile
-    image: "$SDB_YUB_DOCKER"
+    # TODO - MAKE IMAGE NAME DYNAMIC
+    image: $SDB_YUB_DOCKER_IMG
