@@ -1,23 +1,4 @@
 set -ax
-
-export SDB_VERSION
-export YUBICO_BUILD
-export YUBICO_BUILD_ENV
-export YUBICO_BUILD_ENV_VERSION
-export SDB_YUB_DOCKER_IMG
-export SDB_YUB_DOCKER_TAG_GENERAL
-export SDB_YUB_DOCKER_TAG_ARM64
-export SDB_YUB_DOCKER_TAG_X64
-export SDB_YUB_DOCKER_TAG_X86
-export SDB_YUB_DOCKER
-# export SOLANA_BUILD
-# export SOLANA_BUILD_ENV
-# export SOLANA_BUILD_ENV_VERSION
-# export SDB_SOL_DOCKER_TAG_GENERAL
-# export SDB_SOL_DOCKER_IMG
-# export SDB_SOL_DOCKER_TAG
-# EXPORT SDB_SOL_DOCKER
-
 # We use Docker Build Kit as it supports advanced features such as
 # cross-architecture building using QEMU, and extracting files from
 # the final build image.
