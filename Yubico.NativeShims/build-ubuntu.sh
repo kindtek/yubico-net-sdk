@@ -86,7 +86,7 @@ docker buildx build \
     --platform=linux/arm64 \
     --build-arg USER_ID=${USER_ID} \
     --build-arg GROUP_ID=${GROUP_ID} \
-    --build-arg ARTIFACT_DIR=${YUBICO_BUILD_ENV-arm64} \
-    --output type=local,dest=$YUBICO_BUILD_ENV-arm64 \
+    --build-arg ARTIFACT_DIR=${YUBICO_BUILD_ENV}-arm64 \
+    --output type=local,dest=${YUBICO_BUILD_ENV}-arm64 \
     .
 
