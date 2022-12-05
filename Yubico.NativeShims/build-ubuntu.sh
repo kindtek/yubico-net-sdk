@@ -4,17 +4,16 @@ ARG SDB_VERSION
 ARG YUBICO_BUILD
 ARG YUBICO_BUILD_ENV
 ARG YUBICO_BUILD_ENV_VERSION
-
-# ARG SOLANA_BUILD
-# ARG SOLANA_BUILD_ENV
-# ARG SOLANA_BUILD_ENV_VERSION
 ARG SDB_YUB_DOCKER_IMG
-# ARG ARG SDB_YUB_DOCKER_TAG_GENERAL
+ARG SDB_YUB_DOCKER_TAG_GENERAL
 ARG SDB_YUB_DOCKER_TAG_ARM64
 ARG SDB_YUB_DOCKER_TAG_X64
 ARG SDB_YUB_DOCKER_TAG_X86
 ARG SDB_YUB_DOCKER
-
+# ARG SOLANA_BUILD
+# ARG SOLANA_BUILD_ENV
+# ARG SOLANA_BUILD_ENV_VERSION
+# ARG ARG SDB_YUB_DOCKER_TAG_GENERAL
 # ARG SDB_SOL_DOCKER_IMG
 # ARG SDB_SOL_DOCKER_TAG
 # ARG SDB_SOL_DOCKER
@@ -75,38 +74,38 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag "$SDB_YUB_DOCKER_GENERAL"-x64 \
+    --tag "$SDB_YUB_DOCKER_TAG_GENERAL"-x64 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --build-arg ARTIFACT_DIR="$SDB_YUB_ENV"-x64 \
-    --output type=local,dest="$SDB_YUB_ENV"-x64 \
+    --build-arg ARTIFACT_DIR="$YUBICO_BUILD_ENV"-x64 \
+    --output type=local,dest="$YUBICO_BUILD_ENV"-x64 \
     .
 
 # Distro: Ubuntu
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag "$SDB_YUB_DOCKER_GENERAL"-x86 \
+    --tag "$SDB_YUB_DOCKER_TAG_GENERAL"-x86 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --build-arg ARTIFACT_DIR="$SDB_YUB_ENV"-x86 \
-    --output type=local,dest="$SDB_YUB_ENV"-x86 \
+    --build-arg ARTIFACT_DIR="$YUBICO_BUILD_ENV"-x86 \
+    --output type=local,dest="$YUBICO_BUILD_ENV"-x86 \
     .
 
 # Distro: Ubuntu
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag "$SDB_YUB_DOCKER_GENERAL"-arm64 \
+    --tag "$SDB_YUB_DOCKER_TAG_GENERAL"-arm64 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --build-arg ARTIFACT_DIR="$SDB_YUB_ENV"-arm64 \
-    --output type=local,dest="$SDB_YUB_ENV"-arm64 \
+    --build-arg ARTIFACT_DIR="$YUBICO_BUILD_ENV"-arm64 \
+    --output type=local,dest="$YUBICO_BUILD_ENV"-arm64 \
     .
 
