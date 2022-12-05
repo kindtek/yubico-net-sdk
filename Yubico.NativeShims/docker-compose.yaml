@@ -4,6 +4,7 @@ services:
   yubi:
     env_file:
       - ../../sdb.env
+      - ../../yub.env
     build:
       args:
         USER_ID: 1000
