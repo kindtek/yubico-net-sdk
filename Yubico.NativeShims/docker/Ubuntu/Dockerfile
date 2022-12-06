@@ -11,7 +11,7 @@ FROM ubuntu:bionic AS env
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN groupadd -f -g $YUBICO_GROUP_ID local && useradd -o -u $YUBICO_USER_ID -g $YUBICO_GROUP_ID -s /bin/sh local
+RUN groupadd -f -g ${YUBICO_GROUP_ID:-1000} local && useradd -o -u ${YUBICO_USER_ID:-1000} -g ${YUBICO_GROUP_ID:-1000} -s /bin/sh local
 
 
 # Install build tools
