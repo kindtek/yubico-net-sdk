@@ -59,11 +59,11 @@ docker buildx build \
     # --tag ${SDB_YUB_DOCKER_IMG}: \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img.debug}:${SDB_YUB_DOCKER_TAG:-tag.debug}" \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid.debug} \
+    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}:${SDB_YUB_DOCKER_TAG:-tag_debug}" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1.debug}-x64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2.debug}-x64" \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x64" \
     .
 
 # Distro: Ubuntu
@@ -72,11 +72,11 @@ docker buildx build \
 docker buildx build \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img.debug}:${SDB_YUB_DOCKER_TAG:-tag.debug}" \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid.debug} \
+    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}:${SDB_YUB_DOCKER_TAG:-tag_debug}" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1.debug}-x86" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2.debug}-x86" \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x86" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x86" \
     .
 
 # Distro: Ubuntu
@@ -85,11 +85,11 @@ docker buildx build \
 docker buildx build \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img.debug}:${SDB_YUB_DOCKER_TAG:-tag.debug}" \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid.debug} \
+    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}:${SDB_YUB_DOCKER_TAG:-tag_debug}" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1.debug}-arm64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2.debug}-arm64" \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-arm64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-arm64" \
     .
 
 set +ax
