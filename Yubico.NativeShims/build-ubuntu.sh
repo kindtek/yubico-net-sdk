@@ -58,9 +58,9 @@ docker buildx build \
     --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
-    --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
-    --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x64 \
+    --build-arg USER_ID=${YUBICO_USER_ID} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
+    --build-arg ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x64 \
     --output type=local,dest=${YUBICO_BUILD_ENV}-x64 \
     .
 
@@ -71,9 +71,9 @@ docker buildx build \
     --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
-    --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
-    --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x86 \
+    --build-arg USER_ID=${YUBICO_USER_ID} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
+    --build-arg ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x86 \
     --output type=local,dest=${YUBICO_BUILD_ENV}-x86 \
     .
 
@@ -84,9 +84,9 @@ docker buildx build \
     --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
-    --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
-    --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-arm64 \
+    --build-arg USER_ID=${YUBICO_USER_ID} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
+    --build-arg ARTIFACT_DIR=${YUBICO_BUILD_ENV}-arm64 \
     --output type=local,dest=${YUBICO_BUILD_ENV}-arm64 \
     .
 
