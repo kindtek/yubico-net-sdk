@@ -76,7 +76,7 @@ FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
 RUN mkdir -p /home/build/artifacts/${YUB_ARTIFACT_DIR} \
-    && cp /home/build/build_out/*.so /home/build/artifacts/$YUB_ARTIFACT_DIR
+    && cp /home/build/build_out/*.so /home/build/artifacts/${YUB_ARTIFACT_DIR}
 
 # Copy over the build artifacts to a blank image. This way we can easily retrieve the
 # build results without copying all of the previous image's filesystem. `Scratch` is
