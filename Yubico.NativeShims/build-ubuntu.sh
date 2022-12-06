@@ -4,6 +4,8 @@ set -ax
 # the final build image.
 
 export DOCKER_BUILDKIT=1
+ARG SDB_YUB_DOCKER_IMG=$SDB_YUB_DOCKER_IMG
+
 
 # Download the Docker image / plugin that allows QEMU to run non-
 # native container architectures. This step is necessary to run
@@ -55,9 +57,10 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG} \
+    # --tag ${SDB_YUB_DOCKER_IMG}: \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
+    --build-arg tag="${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}" \
     --build-arg USER_ID=${YUBICO_USER_ID} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV}-x64" \
@@ -68,9 +71,9 @@ docker buildx build \
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
+    --build-arg tag="${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}" \
     --build-arg USER_ID=${YUBICO_USER_ID} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV}-x86" \
@@ -81,9 +84,9 @@ docker buildx build \
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
+    --build-arg tag="${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}" \
     --build-arg USER_ID=${YUBICO_USER_ID} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV}-arm64" \
