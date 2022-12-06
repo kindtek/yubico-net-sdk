@@ -55,26 +55,26 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER}-x64 \
+    --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
     --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
     --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x64 \
-    --output type=local,dest=${YUBICO_BUILD_ENV}-x64 \
+    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV} \
+    --output type=local,dest=${YUBICO_BUILD_ENV} \
     .
 
 # Distro: Ubuntu
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER}-x86 \
+    --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
     --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
     --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x86 \
-    --output type=local,dest=${YUBICO_BUILD_ENV}-x86 \
+    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV} \
+    --output type=local,dest=${YUBICO_BUILD_ENV} \
     .
 
 # Distro: Ubuntu
@@ -86,7 +86,7 @@ docker buildx build \
     --platform=linux/arm64 \
     --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
     --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-arm64 \
-    --output type=local,dest=${YUBICO_BUILD_ENV}-arm64 \
+    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV} \
+    --output type=local,dest=${YUBICO_BUILD_ENV} \
     .
 
