@@ -1,6 +1,6 @@
-ARG USER_ID=$YUB_USER_ID
-ARG GROUP_ID=$YUB_GROUP_ID
-ARG ARTIFACT_DIR=$YUB_ARTIFACT_DIR
+ARG YUBICO_USER_ID=$YUBICO_USER_ID
+ARG YUBICO_GROUP_ID=$YUBICO_GROUP_ID
+ARG YUB_ARTIFACT_DIR=$YUB_ARTIFACT_DIR
 # These arguments are passed in from the console or by Docker-CLI itself. User/Group ID
 # is used to run the shell as the host's user identity. Artifact_dir should be set to
 # the NuGet runtime-id for this platform (e.g. ubuntu-x64) to aid in artifact discovery
@@ -14,7 +14,7 @@ FROM ubuntu:bionic AS env
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN groupadd -f -g ${YUB_GROUP_ID} local && useradd -o -u ${YUB_USER_ID} -g ${YUB_GROUP_ID} -s /bin/sh local
+RUN groupadd -f -g ${YUBICO_GROUP_ID} local && useradd -o -u ${YUBICO_USER_ID} -g ${YUBICO_GROUP_ID} -s /bin/sh local
 
 
 # Install build tools
@@ -71,7 +71,7 @@ RUN rm -rf artifacts
 # build instructions in this stage. For now, this simply means generating the CMake
 # cache, and building using CMake. We move the build artifacts into a well known
 # location to help the artifact stage.
-
+ARG YUB_ARTIFACT_DIR=$YUB_ARTIFACT_DIR
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
@@ -83,7 +83,7 @@ RUN mkdir -p /home/build/artifacts/${YUB_ARTIFACT_DIR} \
 # a completely blank image. We then use the `COPY` instruction to pull only the files
 # we care about into this blank space. The `--output` argument to the `docker` command
 # specifies what we do with this result.
-ARG ARTIFACT_DIR=$ARTIFACT_DIR
+ARG YUB_ARTIFACT_DIR=$YUB_ARTIFACT_DIR
 FROM scratch AS build_install
 COPY --from=build /home/build/artifacts/${YUB_ARTIFACT_DIR}/ .
 
