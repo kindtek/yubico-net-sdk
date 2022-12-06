@@ -1,16 +1,14 @@
-# We use Bionic as the basis for our image. Bionic is the last Ubuntu long-term support
-# release that is both still supported and still supports i386 processors. Once Bionic
-# leaves support, we can consider upgrading to the next LTS release.
-
-FROM ubuntu:bionic AS env
-
+ARG USER_ID=$YUB_USER_ID
+ARG GROUP_ID=$YUB_GROUP_ID
+ARG ARTIFACT_DIR=$YUB_ARTIFACT_DIR
 # These arguments are passed in from the console or by Docker-CLI itself. User/Group ID
 # is used to run the shell as the host's user identity. Artifact_dir should be set to
 # the NuGet runtime-id for this platform (e.g. ubuntu-x64) to aid in artifact discovery
 # in the GitHub Action workflow.
-ARG USER_ID
-ARG GROUP_ID
-ARG ARTIFACT_DIR
+# We use Bionic as the basis for our image. Bionic is the last Ubuntu long-term support
+# release that is both still supported and still supports i386 processors. Once Bionic
+# leaves support, we can consider upgrading to the next LTS release.
+FROM ubuntu:bionic AS env
 
 # Set up basic environment variables such as the path.
 ENV PATH=/usr/local/bin:$PATH
@@ -73,10 +71,11 @@ RUN rm -rf artifacts
 # build instructions in this stage. For now, this simply means generating the CMake
 # cache, and building using CMake. We move the build artifacts into a well known
 # location to help the artifact stage.
+
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
-RUN mkdir -p /home/build/artifacts/$ARTIFACT_DIR \
+RUN mkdir -p /home/build/artifacts/${ARTIFACT_DIR} \
     && cp /home/build/build_out/*.so /home/build/artifacts/$ARTIFACT_DIR
 
 # Copy over the build artifacts to a blank image. This way we can easily retrieve the
@@ -84,8 +83,9 @@ RUN mkdir -p /home/build/artifacts/$ARTIFACT_DIR \
 # a completely blank image. We then use the `COPY` instruction to pull only the files
 # we care about into this blank space. The `--output` argument to the `docker` command
 # specifies what we do with this result.
+ARG ARTIFACT_DIR=$ARTIFACT_DIR
 FROM scratch AS build_install
-COPY --from=build /home/build/artifacts/$ARTIFACT_DIR/ .
+COPY --from=build /home/build/artifacts/${ARTIFACT_DIR}/ .
 
 
 
