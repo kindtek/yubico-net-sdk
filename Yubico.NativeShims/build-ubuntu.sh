@@ -60,8 +60,8 @@ docker buildx build \
     --platform=linux/amd64 \
     --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
     --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV} \
-    --output type=local,dest=${YUBICO_BUILD_ENV} \
+    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x64 \
+    --output type=local,dest=${YUBICO_BUILD_ENV}-x64 \
     .
 
 # Distro: Ubuntu
@@ -73,20 +73,20 @@ docker buildx build \
     --platform=linux/386 \
     --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
     --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV} \
-    --output type=local,dest=${YUBICO_BUILD_ENV} \
+    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-x86 \
+    --output type=local,dest=${YUBICO_BUILD_ENV}-x86 \
     .
 
 # Distro: Ubuntu
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER}-arm64 \
+    --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
     --build-arg YUBICO_USER_ID=${YUBICO_USER_ID} \
     --build-arg YUBICO_GROUP_ID=${YUBICO_GROUP_ID} \
-    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV} \
-    --output type=local,dest=${YUBICO_BUILD_ENV} \
+    --build-arg YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV}-arm64 \
+    --output type=local,dest=${YUBICO_BUILD_ENV}-arm64 \
     .
 
