@@ -90,3 +90,4 @@ docker buildx build \
     --output type=local,dest="${YUBICO_BUILD_ENV}-arm64" \
     .
 
+set +ax
