@@ -5,6 +5,9 @@
 # We use Bionic as the basis for our image. Bionic is the last Ubuntu long-term support
 # release that is both still supported and still supports i386 processors. Once Bionic
 # leaves support, we can consider upgrading to the next LTS release.
+ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
+ARG YUBICO_USER_ID=$YUBICO_USER_ID
+ARG YUBICO_GROUP_ID=$YUBICO_GROUP_ID
 FROM ubuntu:bionic AS env
 
 # Set up basic environment variables such as the path.
@@ -67,6 +70,7 @@ RUN rm -rf artifacts
 # quickly roll back a failed build and retry (or try interactively). Put all of the
 # build instructions in this stage. For now, this simply means generating the CMake
 # cache, and building using CMake. We move the build artifacts into a well known
+ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 # location to help the artifact stage.
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
@@ -79,6 +83,7 @@ RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR} \
 # a completely blank image. We then use the `COPY` instruction to pull only the files
 # we care about into this blank space. The `--output` argument to the `docker` command
 # specifies what we do with this result.
+ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 FROM scratch AS build_install
 COPY --from=build /home/build/artifacts/${YUBICO_ARTIFACT_DIR}/ .
 
