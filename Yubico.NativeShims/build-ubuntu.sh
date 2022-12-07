@@ -1,5 +1,5 @@
 set -ax
-. sdb.env
+. ../../sdb.env
 set +ax
 # We use Docker Build Kit as it supports advanced features such as
 # cross-architecture building using QEMU, and extracting files from
