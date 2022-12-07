@@ -75,8 +75,8 @@ ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
-RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR} \
-    && cp /home/build/build_out/*.so /home/build/artifacts/${YUBICO_ARTIFACT_DIR}
+RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR:-ubuntu-x64} \
+    && cp /home/build/build_out/*.so /home/build/artifacts/${YUBICO_ARTIFACT_DIR:-ubuntu-x64}
 
 # Copy over the build artifacts to a blank image. This way we can easily retrieve the
 # build results without copying all of the previous image's filesystem. `Scratch` is
@@ -85,7 +85,7 @@ RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR} \
 # specifies what we do with this result.
 ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 FROM scratch AS build_install
-COPY --from=build /home/build/artifacts/${YUBICO_ARTIFACT_DIR}/ .
+COPY --from=build /home/build/artifacts/${YUBICO_ARTIFACT_DIR:-ubuntu-x64}/ .
 
 
 
