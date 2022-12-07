@@ -1,6 +1,5 @@
 set -ax
 . ../../sdb.env
-set +ax
 # We use Docker Build Kit as it supports advanced features such as
 # cross-architecture building using QEMU, and extracting files from
 # the final build image.
@@ -61,7 +60,7 @@ docker buildx build \
     # --tag ${SDB_YUB_DOCKER_IMG}: \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}}" \
+    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x64" \
@@ -74,7 +73,7 @@ docker buildx build \
 docker buildx build \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}}" \
+    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x86" \
@@ -87,7 +86,7 @@ docker buildx build \
 docker buildx build \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}}" \
+    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-arm64" \
