@@ -3,8 +3,8 @@ version: "3.8"
 services:
   yubi:
     env_file:
-      - ../../sdb.env
-      - ../../yub.env
+      - ../sdb.env
+      - sdb.env
     build:
       args:
         - YUBICO_USER_ID=1000 
