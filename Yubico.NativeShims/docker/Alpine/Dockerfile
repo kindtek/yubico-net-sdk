@@ -14,8 +14,8 @@ FROM alpine:latest AS env
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN adduser --uid ${YUBICO_USER_ID:-1000} -s /bin/ash -H -S && addgroup --gid ${YUBICO_GROUP_ID:-1000}
-
+RUN addgroup --gid ${YUBICO_GROUP_ID:-1000} -S local && adduser --uid ${YUBICO_USER_ID:-1000} -s /bin/ash -H -G local 
+# original: RUN groupadd -f -g ${YUBICO_GROUP_ID:-1000} local && useradd -o -u ${YUBICO_USER_ID:-1000} -g ${YUBICO_GROUP_ID:-1000} -s /bin/sh local
 
 # Install build tools
 RUN apk update && \
