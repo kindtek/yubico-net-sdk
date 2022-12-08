@@ -14,7 +14,7 @@ FROM alpine:latest AS env
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN adduser --uid ${YUBICO_USER_ID:-1000} --shell /bin/sh --home local && addgroup --gid ${YUBICO_GROUP_ID:-1000}
+RUN adduser --uid ${YUBICO_USER_ID:-1000} -s /bin/ash -H -S && addgroup --gid ${YUBICO_GROUP_ID:-1000}
 
 
 # Install build tools
