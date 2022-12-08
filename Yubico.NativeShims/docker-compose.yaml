@@ -20,4 +20,4 @@ services:
       context: .
       dockerfile: docker/Alpine/Dockerfile
     # TODO - MAKE IMAGE NAME DYNAMIC
-    image: kindtek/yubico-safedb-ubuntu
+    image: kindtek/yubico-safedb-alpine
