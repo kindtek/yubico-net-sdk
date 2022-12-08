@@ -60,7 +60,7 @@ docker buildx build \
     # --tag ${SDB_YUB_DOCKER_IMG}: \
     --file docker/Alpine/Dockerfile \
     --platform=linux/amd64 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
+    --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x64" \
@@ -73,7 +73,7 @@ docker buildx build \
 docker buildx build \
     --file docker/Alpine/Dockerfile \
     --platform=linux/386 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
+    --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x86" \
@@ -86,7 +86,7 @@ docker buildx build \
 docker buildx build \
     --file docker/Alpine/Dockerfile \
     --platform=linux/arm64 \
-    --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
+    --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
     --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-arm64" \
