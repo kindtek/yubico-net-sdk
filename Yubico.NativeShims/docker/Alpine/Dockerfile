@@ -42,8 +42,8 @@ RUN apk update && \
 # denote the package that contains headers and libs.
 RUN apk update && \
     apk --no-cache add \
-    libpcsclite-dev \
-    libssl-dev && \
+    pcsc-lite-libs \
+    libressl-dev && \
     apk upgrade
 
 # Snapshot the base environment. If we ever decide to cache our images in a container
