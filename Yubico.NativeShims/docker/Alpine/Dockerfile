@@ -14,7 +14,7 @@ FROM alpine:latest AS env
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN groupadd -f -g ${YUBICO_GROUP_ID:-1000} local && useradd -o -u ${YUBICO_USER_ID:-1000} -g ${YUBICO_GROUP_ID:-1000} -s /bin/sh local
+RUN adduser --uid ${YUBICO_USER_ID:-1000} --shell /bin/sh --home local && addgroup --gid ${YUBICO_GROUP_ID:-1000}
 
 
 # Install build tools
@@ -43,7 +43,8 @@ RUN apk update && \
 RUN apk update && \
     apk --no-cache add \
     libpcsclite-dev \
-    libssl-dev
+    libssl-dev \
+    apk upgrade
 
 # Snapshot the base environment. If we ever decide to cache our images in a container
 # registry, `env` is the target we'd want to capture. The dependencies will be installed
