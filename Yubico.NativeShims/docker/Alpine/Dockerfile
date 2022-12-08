@@ -43,7 +43,7 @@ RUN apk update && \
 RUN apk update && \
     apk --no-cache add \
     libpcsclite-dev \
-    libssl-dev \
+    libssl-dev && \
     apk upgrade
 
 # Snapshot the base environment. If we ever decide to cache our images in a container
