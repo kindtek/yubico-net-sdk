@@ -57,38 +57,38 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./alpine-x64/libYubico.NativeShims.so
 docker buildx build \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-alpine_debug} \
     --file docker/Alpine/Dockerfile \
     --platform=linux/amd64 \
-    --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x64" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-alpine_debug}-x64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-alpine_debug}-x64" \
     .
 
 # Distro: Alpine
 # Arch: i386/x86
 # Output: ./alpine-x86/libYubico.NativeShims.so
 docker buildx build \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-alpine_debug} \
     --file docker/Alpine/Dockerfile \
     --platform=linux/386 \
-    --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x86" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x86" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-alpine_debug}-x86" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-alpine_debug}-x86" \
     .
 
 # Distro: Alpine
 # Arch: arm64
 # Output: ./alpine-arm64/libYubico.NativeShims.so
 docker buildx build \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-alpine_debug} \
     --file docker/Alpine/Dockerfile \
     --platform=linux/arm64 \
-    --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-arm64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-arm64" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-alpine_debug}-arm64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-alpine_debug}-arm64" \
     .
 

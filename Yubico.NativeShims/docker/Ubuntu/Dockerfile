@@ -47,7 +47,7 @@ RUN apt-get update -qq \
 # manager is still almost always going to be the easiest way of finding the necessary
 # headers and pre-built libraries. Be sure to use the -dev packages, as these typically
 # denote the package that contains headers and libs.
-RUN  apt-get update -qq \
+RUN apt-get update -qq \
     && apt-get install -yq \
     libpcsclite-dev \
     libssl-dev
