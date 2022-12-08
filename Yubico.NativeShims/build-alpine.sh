@@ -57,7 +57,6 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./alpine-x64/libYubico.NativeShims.so
 docker buildx build \
-    # --tag ${SDB_YUB_DOCKER_IMG}: \
     --file docker/Alpine/Dockerfile \
     --platform=linux/amd64 \
     --build-arg TAG=${SDB_YUB_DOCKER_IMG:-img_debug} \
