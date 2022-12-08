@@ -73,6 +73,26 @@ jobs:
         with:
           name: ubuntu-arm64
           path: Yubico.NativeShims/ubuntu-arm64/**
+  build-alpine:
+    name: Build Alpine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          cd Yubico.NativeShims
+          sh ./build-alpine.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: alpine-x64
+          path: Yubico.NativeShims/alpine-x64/**
+      - uses: actions/upload-artifact@v3
+        with:
+          name: alpine-x86
+          path: Yubico.NativeShims/alpine-x86/**
+      - uses: actions/upload-artifact@v3
+        with:
+          name: alpine-arm64
+          path: Yubico.NativeShims/alpine-arm64/**
 
   build-macos:
     name: Build macOS
