@@ -42,7 +42,7 @@ RUN apk update && \
 # denote the package that contains headers and libs.
 RUN apk update && \
     apk --no-cache add \
-    pcsc-lite-libs \
+    pcsc-lite-dev \
     libressl-dev && \
     apk upgrade
 
