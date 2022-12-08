@@ -53,12 +53,12 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # some point to make adding new distributions and architectures even
 # easier.
 
-# Distro: Ubuntu
+# Distro: Alpine
 # Arch: amd64/x64
-# Output: ./ubuntu-x64/libYubico.NativeShims.so
+# Output: ./alpine-x64/libYubico.NativeShims.so
 docker buildx build \
     # --tag ${SDB_YUB_DOCKER_IMG}: \
-    --file docker/Ubuntu/Dockerfile \
+    --file docker/Alpine/Dockerfile \
     --platform=linux/amd64 \
     --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
@@ -67,11 +67,11 @@ docker buildx build \
     --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x64" \
     .
 
-# Distro: Ubuntu
+# Distro: Alpine
 # Arch: i386/x86
-# Output: ./ubuntu-x86/libYubico.NativeShims.so
+# Output: ./alpine-x86/libYubico.NativeShims.so
 docker buildx build \
-    --file docker/Ubuntu/Dockerfile \
+    --file docker/Alpine/Dockerfile \
     --platform=linux/386 \
     --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
@@ -80,11 +80,11 @@ docker buildx build \
     --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x86" \
     .
 
-# Distro: Ubuntu
+# Distro: Alpine
 # Arch: arm64
-# Output: ./ubuntu-arm64/libYubico.NativeShims.so
+# Output: ./alpine-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --file docker/Ubuntu/Dockerfile \
+    --file docker/Alpine/Dockerfile \
     --platform=linux/arm64 \
     --build-arg TAG="${SDB_YUB_DOCKER_IMG:-img_debug}" \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
