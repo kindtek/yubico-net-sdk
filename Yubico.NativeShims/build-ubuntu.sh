@@ -57,38 +57,38 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu:_debug} \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
     --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu_debug}-x64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu_debug}-x64" \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu}-x64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu}-x64" \
     .
 
 # Distro: Ubuntu
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu:_debug} \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
-    --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-artifact1_debug}-x86" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-artifact2_debug}-x86" \
+    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu}-x86" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu}-x86" \
     .
 
 # Distro: Ubuntu
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu:_debug} \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
     --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu_debug}-arm64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu_debug}-arm64" \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu}-arm64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu}-arm64" \
     .
 
