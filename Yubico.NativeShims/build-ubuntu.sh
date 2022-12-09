@@ -57,8 +57,8 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-alpine:_debug} \
-    --file docker/Alpine/Dockerfile \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu:_debug} \
+    --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
     --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
@@ -70,8 +70,8 @@ docker buildx build \
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-alpine:_debug} \
-    --file docker/Alpine/Dockerfile \
+    --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu:_debug} \
+    --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
     --build-arg USER_ID=${YUBICO_USER_ID:-userid_debug} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-groupdid_debug} \
@@ -84,7 +84,7 @@ docker buildx build \
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
     --tag ${SDB_YUB_DOCKER_IMG:-kindtek/yubico-safedb-ubuntu:_debug} \
-    --file docker/Alpine/Dockerfile \
+    --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
     --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
     --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \

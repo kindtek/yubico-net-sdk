@@ -18,6 +18,6 @@ services:
         - SDB_YUB_DOCKER="${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}"
         - YUBICO_ARTIFACT_DIR=$YUBICO_BUILD_ENV-x64
       context: .
-      dockerfile: docker/Alpine/Dockerfile
+      dockerfile: docker/Ubuntu/Dockerfile
     # TODO - MAKE IMAGE NAME DYNAMIC
-    image: kindtek/yubico-safedb-alpine
+    image: kindtek/yubico-safedb-ubuntu

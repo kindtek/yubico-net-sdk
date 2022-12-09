@@ -8,6 +8,8 @@
 ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 ARG YUBICO_USER_ID=$YUBICO_USER_ID
 ARG YUBICO_GROUP_ID=$YUBICO_GROUP_ID
+ARG 
+
 FROM ubuntu:bionic AS env
 
 # Set up basic environment variables such as the path.
@@ -70,9 +72,9 @@ RUN rm -rf artifacts
 # quickly roll back a failed build and retry (or try interactively). Put all of the
 # build instructions in this stage. For now, this simply means generating the CMake
 # cache, and building using CMake. We move the build artifacts into a well known
-ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 # location to help the artifact stage.
 FROM devel AS build
+ARG YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
 RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR:-ubuntu-x64} \
