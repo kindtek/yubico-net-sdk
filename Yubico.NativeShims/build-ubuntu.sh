@@ -1,5 +1,11 @@
 set -ax
 . ../../sdb.env
+# load args/defaults
+SDB_YUB_DOCKER_IMG=${SDB_YUB_DOCKER_IMG:-kindtek/yubico-sdb-ubuntu}
+YUBICO_BUILD_ENV=${YUBICO_BUILD_ENV:-ubuntu}
+YUBICO_USER_ID=${YUBICO_USER_ID:-1000}
+YUBICO_GROUP_ID=${YUBICO_GROUP_ID:-1000}
+
 # We use Docker Build Kit as it supports advanced features such as
 # cross-architecture building using QEMU, and extracting files from
 # the final build image.
@@ -57,38 +63,38 @@ docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p
 # Arch: amd64/x64
 # Output: ./ubuntu-x64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER_IMG:-'kindtek/yubico-sdb-ubuntu'} \
+    --tag ${SDB_YUB_DOCKER_IMG} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/amd64 \
-    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu}-x64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu}-x64" \
+    --build-arg USER_ID=${YUBICO_USER_ID} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV}-x64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV}-x64" \
     .
 
 # Distro: Ubuntu
 # Arch: i386/x86
 # Output: ./ubuntu-x86/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER:-'kindtek/yubico-sdb-ubuntu'} \
+    --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/386 \
-    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu}-x86" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu}-x86" \
+    --build-arg USER_ID=${YUBICO_USER_ID} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV}-x86" \
+    --output type=local,dest="${YUBICO_BUILD_ENV}-x86" \
     .
 
 # Distro: Ubuntu
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER:-'kindtek/yubico-sdb-ubuntu'} \
+    --tag ${SDB_YUB_DOCKER} \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
-    --build-arg USER_ID=${YUBICO_USER_ID:-1000} \
-    --build-arg GROUP_ID=${YUBICO_GROUP_ID:-1000} \
-    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV:-ubuntu}-arm64" \
-    --output type=local,dest="${YUBICO_BUILD_ENV:-ubuntu}-arm64" \
+    --build-arg USER_ID=${YUBICO_USER_ID} \
+    --build-arg GROUP_ID=${YUBICO_GROUP_ID} \
+    --build-arg ARTIFACT_DIR="${YUBICO_BUILD_ENV}-arm64" \
+    --output type=local,dest="${YUBICO_BUILD_ENV}-arm64" \
     .
 
