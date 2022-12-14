@@ -7,8 +7,8 @@ FROM ubuntu:bionic AS env
 # is used to run the shell as the host's user identity. Artifact_dir should be set to
 # the NuGet runtime-id for this platform (e.g. ubuntu-x64) to aid in artifact discovery
 # in the GitHub Action workflow.
-ARG USER_ID=`id -u`
-ARG GROUP_ID=`id -g`
+ARG USER_ID
+ARG GROUP_ID`
 ARG ARTIFACT_DIR=${ARTIFACT_DIR:-ubuntu-x64}
 
 # Set up basic environment variables such as the path.
