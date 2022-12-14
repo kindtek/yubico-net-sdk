@@ -6,8 +6,8 @@
 # release that is both still supported and still supports i386 processors. Once Bionic
 # leaves support, we can consider upgrading to the next LTS release.
 ARG YUBICO_ARTIFACT_DIR=${YUBICO_ARTIFACT_DIR:-ubuntu-x64}
-ARG YUBICO_USER_ID=${YUBICO_USER_ID:-1000}
-ARG YUBICO_GROUP_ID=${YUBICO_GROUP_ID:-1000}
+ARG YUBICO_USER_ID=${YUBICO_USER_ID:-`id -u`}
+ARG YUBICO_GROUP_ID=${YUBICO_GROUP_ID:-`id -u`}
 
 FROM ubuntu:bionic AS env
 
@@ -15,7 +15,7 @@ FROM ubuntu:bionic AS env
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN groupadd -f -g ${YUBICO_GROUP_ID:-1000} local && useradd -o -u ${YUBICO_USER_ID:-1000} -g ${YUBICO_GROUP_ID:-1000} -s /bin/sh local
+RUN groupadd -f -g ${YUBICO_GROUP_ID} local && useradd -o -u ${YUBICO_USER_ID} -g ${YUBICO_GROUP_ID} -s /bin/sh local
 
 
 # Install build tools
@@ -75,8 +75,8 @@ RUN rm -rf artifacts
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
-RUN mkdir -p /home/build/artifacts/ubuntu-x64 \
-    && cp /home/build/build_out/*.so /home/build/artifacts/ubuntu-x64
+RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR} \
+    && cp /home/build/build_out/*.so /home/build/artifacts/${YUBICO_ARTIFACT_DIR}
 
 # Copy over the build artifacts to a blank image. This way we can easily retrieve the
 # build results without copying all of the previous image's filesystem. `Scratch` is
@@ -84,7 +84,7 @@ RUN mkdir -p /home/build/artifacts/ubuntu-x64 \
 # we care about into this blank space. The `--output` argument to the `docker` command
 # specifies what we do with this result.
 FROM scratch AS build_install
-COPY --from=build /home/build/artifacts/ubuntu-x64/ .
+COPY --from=build /home/build/artifacts/${YUBICO_ARTIFACT_DIR}/ .
 
 
 

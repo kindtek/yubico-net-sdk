@@ -14,9 +14,6 @@
 
 FROM nginx:alpine
 
-ARG UID=1000
-ARG GID=1000
-
 # -h - Home directory
 # -S - Create a system user/group
 # -s - Login shell
