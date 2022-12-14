@@ -15,7 +15,7 @@ ARG ARTIFACT_DIR=${ARTIFACT_DIR:-ubuntu-x64}
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN groupadd -f -g ${GROUP_ID} local && useradd -u ${USER_ID} -g ${GROUP_ID} -s /bin/sh local
+RUN groupadd -f -g 1000 local && useradd -u 1000 -g 1000 -s /bin/sh local
 
 # Install build tools
 RUN apt-get update -qq \
