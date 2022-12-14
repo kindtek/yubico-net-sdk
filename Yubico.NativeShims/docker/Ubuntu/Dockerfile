@@ -1,22 +1,21 @@
+# We use Bionic as the basis for our image. Bionic is the last Ubuntu long-term support
+# release that is both still supported and still supports i386 processors. Once Bionic
+# leaves support, we can consider upgrading to the next LTS release.
+FROM ubuntu:bionic AS env
+
 # These arguments are passed in from the console or by Docker-CLI itself. User/Group ID
 # is used to run the shell as the host's user identity. Artifact_dir should be set to
 # the NuGet runtime-id for this platform (e.g. ubuntu-x64) to aid in artifact discovery
 # in the GitHub Action workflow.
-# We use Bionic as the basis for our image. Bionic is the last Ubuntu long-term support
-# release that is both still supported and still supports i386 processors. Once Bionic
-# leaves support, we can consider upgrading to the next LTS release.
-ARG YUBICO_ARTIFACT_DIR=${YUBICO_ARTIFACT_DIR:-ubuntu-x64}
-ARG YUBICO_USER_ID=${YUBICO_USER_ID:-`id -u`}
-ARG YUBICO_GROUP_ID=${YUBICO_GROUP_ID:-`id -u`}
-
-FROM ubuntu:bionic AS env
+ARG USER_ID
+ARG GROUP_ID
+ARG ARTIFACT_DIR
 
 # Set up basic environment variables such as the path.
 ENV PATH=/usr/local/bin:$PATH
 
 # Add the host user and group to the image.
-RUN groupadd -f -g ${YUBICO_GROUP_ID} local && useradd -o -u ${YUBICO_USER_ID} -g ${YUBICO_GROUP_ID} -s /bin/sh local
-
+RUN groupadd -f -g ${GROUP_ID} local && useradd -u ${USER_ID} -g ${GROUP_ID} -s /bin/sh local
 
 # Install build tools
 RUN apt-get update -qq \
@@ -48,7 +47,7 @@ RUN apt-get update -qq \
 # manager is still almost always going to be the easiest way of finding the necessary
 # headers and pre-built libraries. Be sure to use the -dev packages, as these typically
 # denote the package that contains headers and libs.
-RUN apt-get update -qq \
+RUN  apt-get update -qq \
     && apt-get install -yq \
     libpcsclite-dev \
     libssl-dev
@@ -75,8 +74,8 @@ RUN rm -rf artifacts
 FROM devel AS build
 RUN cmake -S . -B build_out -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build_out --target all -v
-RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR} \
-    && cp /home/build/build_out/*.so /home/build/artifacts/${YUBICO_ARTIFACT_DIR}
+RUN mkdir -p /home/build/artifacts/$ARTIFACT_DIR \
+    && cp /home/build/build_out/*.so /home/build/artifacts/$ARTIFACT_DIR
 
 # Copy over the build artifacts to a blank image. This way we can easily retrieve the
 # build results without copying all of the previous image's filesystem. `Scratch` is
@@ -84,7 +83,4 @@ RUN mkdir -p /home/build/artifacts/${YUBICO_ARTIFACT_DIR} \
 # we care about into this blank space. The `--output` argument to the `docker` command
 # specifies what we do with this result.
 FROM scratch AS build_install
-COPY --from=build /home/build/artifacts/${YUBICO_ARTIFACT_DIR}/ .
-
-
-
+COPY --from=build /home/build/artifacts/$ARTIFACT_DIR/ .
