@@ -1,15 +1,8 @@
-set -ax
-. ../../sdb.env
-# load args/defaults
-SDB_YUB_DOCKER_IMG=${SDB_YUB_DOCKER_IMG:-kindtek/yubico-sdb-ubuntu}
-
-
 # We use Docker Build Kit as it supports advanced features such as
 # cross-architecture building using QEMU, and extracting files from
 # the final build image.
 
 export DOCKER_BUILDKIT=1
-
 
 # Download the Docker image / plugin that allows QEMU to run non-
 # native container architectures. This step is necessary to run
@@ -66,7 +59,7 @@ docker buildx build \
     --platform=linux/amd64 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --output type=local,dest="ubuntu-x64" \
+    --output type=local,dest=ubuntu-x64 \
     .
 
 # Distro: Ubuntu
@@ -78,18 +71,17 @@ docker buildx build \
     --platform=linux/386 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --output type=local,dest="ubuntu-x86" \
+    --output type=local,dest=ubuntu-x86 \
     .
 
 # Distro: Ubuntu
 # Arch: arm64
 # Output: ./ubuntu-arm64/libYubico.NativeShims.so
 docker buildx build \
-    --tag ${SDB_YUB_DOCKER} \
+    --tag yubico/nativeshims-ubuntu:1.0 \
     --file docker/Ubuntu/Dockerfile \
     --platform=linux/arm64 \
     --build-arg USER_ID=`id -u` \
     --build-arg GROUP_ID=`id -g` \
-    --output type=local,dest="ubuntu-arm64" \
+    --output type=local,dest=ubuntu-arm64 \
     .
-
