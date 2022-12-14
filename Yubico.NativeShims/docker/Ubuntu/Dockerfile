@@ -8,7 +8,7 @@ FROM ubuntu:bionic AS env
 # the NuGet runtime-id for this platform (e.g. ubuntu-x64) to aid in artifact discovery
 # in the GitHub Action workflow.
 ARG USER_ID
-ARG GROUP_ID`
+ARG GROUP_ID
 ARG ARTIFACT_DIR=${ARTIFACT_DIR:-ubuntu-x64}
 
 # Set up basic environment variables such as the path.
