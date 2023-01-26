@@ -31,7 +31,7 @@ namespace Yubico.YubiKey.Fido2
     /// assertion, including the credential. There are several elements
     /// in this data and this structure contains those elements.
     /// </remarks>
-    public class GetAssertionData
+    public class GetAssertionData : IDisposable
     {
         private const int KeyCredential = 1;
         private const int KeyAuthData = 2;
@@ -39,7 +39,7 @@ namespace Yubico.YubiKey.Fido2
         private const int KeyUser = 4;
         private const int KeyNumberCredentials = 5;
         private const int KeyUserSelected = 6;
-        private const int KeyLargeKeyBlob = 7;
+        private const int KeyLargeBlobKey = 7;
 
         private const string KeyCredentialType = "type";
         private const string KeyCredentialTransports = "transports";
@@ -47,6 +47,10 @@ namespace Yubico.YubiKey.Fido2
         private const string KeyUserId = "id";
         private const string KeyUserName = "name";
         private const string KeyUserDisplayName = "displayName";
+
+//        private readonly Logger _log = Log.GetLogger();
+        private bool _disposed;
+        private byte[]? _keyData;
 
         /// <summary>
         /// The credential ID for the assertion just obtained.
@@ -94,9 +98,9 @@ namespace Yubico.YubiKey.Fido2
         public bool? UserSelected { get; private set; }
 
         /// <summary>
-        /// The large key blob, if there is one. This is optional and can be null.
+        /// The large blob key, if there is one. This is optional and can be null.
         /// </summary>
-        public ReadOnlyMemory<byte>? LargeKeyBlob { get; private set; }
+        public ReadOnlyMemory<byte>? LargeBlobKey { get; private set; }
 
         // The default constructor explicitly defined. We don't want it to be
         // used.
@@ -156,7 +160,11 @@ namespace Yubico.YubiKey.Fido2
                 }
                 NumberOfCredentials = (int?)map.ReadOptional<int>(KeyNumberCredentials);
                 UserSelected = (bool?)map.ReadOptional<bool>(KeyUserSelected);
-                LargeKeyBlob = (ReadOnlyMemory<byte>?)map.ReadOptional<ReadOnlyMemory<byte>>(KeyLargeKeyBlob);
+                _keyData = (byte[]?)map.ReadOptional<byte[]>(KeyLargeBlobKey);
+                if (!(_keyData is null))
+                {
+                    LargeBlobKey = new ReadOnlyMemory<byte>(_keyData);
+                }
             }
             catch (CborContentException cborException)
             {
@@ -199,6 +207,28 @@ namespace Yubico.YubiKey.Fido2
 
             using var ecdsaVfy = new EcdsaVerify(publicKey);
             return ecdsaVfy.VerifyDigestedData(digester.Hash, Signature.ToArray());
+        }
+
+        /// <summary>
+        /// Releases any unmanaged resources and overwrites any sensitive data.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases any unmanaged resources and overwrites any sensitive data.
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                CryptographicOperations.ZeroMemory(_keyData);
+            }
+
+            _disposed = true;
         }
     }
 }

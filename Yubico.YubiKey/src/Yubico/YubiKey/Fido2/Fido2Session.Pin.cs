@@ -201,9 +201,7 @@ namespace Yubico.YubiKey.Fido2
         /// </returns>
         public bool TrySetPin(ReadOnlyMemory<byte> newPin)
         {
-            AuthenticatorInfo info = GetAuthenticatorInfo();
-
-            VerifyPinLengthRequirements(info, newPin);
+            VerifyPinLengthRequirements(newPin);
 
             ObtainSharedSecret();
 
@@ -211,6 +209,9 @@ namespace Yubico.YubiKey.Fido2
 
             if (result.Status == ResponseStatus.Success)
             {
+                // Setting the PIN changes the AuthenticatorInfo, so set this to
+                // null so the next reference initiates a new GetInfo command.
+                _authenticatorInfo = null;
                 return true;
             }
 
@@ -352,9 +353,7 @@ namespace Yubico.YubiKey.Fido2
         /// </exception>
         public bool TryChangePin(ReadOnlyMemory<byte> currentPin, ReadOnlyMemory<byte> newPin)
         {
-            AuthenticatorInfo info = GetAuthenticatorInfo();
-
-            VerifyPinLengthRequirements(info, newPin);
+            VerifyPinLengthRequirements(newPin);
 
             ObtainSharedSecret();
 
@@ -370,6 +369,9 @@ namespace Yubico.YubiKey.Fido2
 
             if (GetCtapError(result) == CtapStatus.PinInvalid)
             {
+                // FIDO authenticators regenerate the public key used for the auth protocol. We need to
+                // re-initialize everything so we can obtain the new shared secret.
+                AuthProtocol.Initialize();
                 return false; // PIN is invalid
             }
 
@@ -609,11 +611,9 @@ namespace Yubico.YubiKey.Fido2
             out int? retriesRemaining,
             out bool? rebootRequired)
         {
-            AuthenticatorInfo info = GetAuthenticatorInfo();
-
             IYubiKeyCommand<GetPinUvAuthTokenResponse> command;
 
-            if (!OptionEnabled(info, "clientPin"))
+            if (!OptionEnabled(AuthenticatorInfo, "clientPin"))
             {
                 throw new InvalidOperationException(ExceptionMessages.Fido2NoPin);
             }
@@ -626,7 +626,7 @@ namespace Yubico.YubiKey.Fido2
             }
             else
             {
-                if (!OptionEnabled(info, "pinUvAuthToken"))
+                if (!OptionEnabled(AuthenticatorInfo, "pinUvAuthToken"))
                 {
                     throw new InvalidOperationException(ExceptionMessages.Fido2PermsNotSupported);
                 }
@@ -653,6 +653,9 @@ namespace Yubico.YubiKey.Fido2
 
             if (GetCtapError(response) == CtapStatus.PinInvalid)
             {
+                // FIDO authenticators regenerate the public key used for the auth protocol. We need to
+                // re-initialize everything so we can obtain the new shared secret.
+                AuthProtocol.Initialize();
                 (retriesRemaining, rebootRequired) = Connection.SendCommand(new GetPinRetriesCommand()).GetData();
 
                 return false; // PIN is invalid
@@ -770,9 +773,7 @@ namespace Yubico.YubiKey.Fido2
                 Request = KeyEntryRequest.VerifyFido2Uv
             };
 
-            AuthenticatorInfo info = GetAuthenticatorInfo();
-
-            if (!OptionEnabled(info, "pinUvAuthToken") || !OptionEnabled(info, "uv"))
+            if (!OptionEnabled(AuthenticatorInfo, "pinUvAuthToken") || !OptionEnabled(AuthenticatorInfo, "uv"))
             {
                 throw new InvalidOperationException(ExceptionMessages.Fido2UvNotSupported);
             }
@@ -880,9 +881,9 @@ namespace Yubico.YubiKey.Fido2
             AuthProtocol = authProtocol;
         }
 
-        private static void VerifyPinLengthRequirements(AuthenticatorInfo info, ReadOnlyMemory<byte> newPin)
+        private void VerifyPinLengthRequirements(ReadOnlyMemory<byte> newPin)
         {
-            int minPinLengthInCodePoints = info.MinimumPinLength ?? PinMinimumByteLength;
+            int minPinLengthInCodePoints = AuthenticatorInfo.MinimumPinLength ?? PinMinimumByteLength;
 
             // Assumption - newPIN is already normalized
             if (newPin.Length < minPinLengthInCodePoints)
@@ -910,8 +911,7 @@ namespace Yubico.YubiKey.Fido2
 
         private PinUvAuthProtocolBase GetPreferredPinProtocol()
         {
-            AuthenticatorInfo info = GetAuthenticatorInfo();
-            PinUvAuthProtocol protocol = info.PinUvAuthProtocols?[0] ?? PinUvAuthProtocol.ProtocolOne;
+            PinUvAuthProtocol protocol = AuthenticatorInfo.PinUvAuthProtocols?[0] ?? PinUvAuthProtocol.ProtocolOne;
 
             return protocol switch
             {

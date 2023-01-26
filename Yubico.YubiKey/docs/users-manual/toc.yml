@@ -280,6 +280,13 @@
     href: application-fido2/pin-uv-auth-protocols.md
   - name: The FIDO2 PIN
     href: application-fido2/fido2-pin.md
+  - name: FIDO2 Blobs
+    href: application-fido2/fido2-blobs.md
+    items:
+    - name: Credential blobs
+      href: application-fido2/cred-blobs.md
+    - name: Large blobs
+      href: application-fido2/large-blobs.md
   - name: Commands
     items:
     - name: FIDO2 commands
@@ -311,8 +318,12 @@
       href: application-yubihsm-auth/commands/reset-application.md
     - name: Get AES-128 session keys
       href: application-yubihsm-auth/commands/get-aes128-session-keys.md
+  - name: YubiHSM Auth credential
+    href: application-yubihsm-auth/objects/credential.md
   - name: YubiHSM Auth session APIs
     href: application-yubihsm-auth/yubihsm-auth-session.md
+  - name: Interacting with a YubiHSM 2
+    href: application-yubihsm-auth/interacting-yubihsm-2.md
 
 - name: "Supporting routines"
   homepage: support/support-overview.md

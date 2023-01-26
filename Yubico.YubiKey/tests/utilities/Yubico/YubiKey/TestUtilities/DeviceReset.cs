@@ -84,7 +84,7 @@ namespace Yubico.YubiKey.TestUtilities
         /// <summary>
         /// Sets which USB features are enabled (and disabled).
         /// </summary>
-        private IYubiKeyDevice SetEnabledUsbCapabilities(
+        private static IYubiKeyDevice SetEnabledUsbCapabilities(
             IYubiKeyDevice key,
             YubiKeyCapabilities yubiKeyCapabilities)
         {
@@ -112,7 +112,7 @@ namespace Yubico.YubiKey.TestUtilities
         /// <summary>
         /// Sets which NFC features are enabled (and disabled).
         /// </summary>
-        private IYubiKeyDevice SetEnabledNfcCapabilities(
+        private static IYubiKeyDevice SetEnabledNfcCapabilities(
             IYubiKeyDevice key,
             YubiKeyCapabilities yubiKeyCapabilities)
         {
@@ -158,4 +158,3 @@ namespace Yubico.YubiKey.TestUtilities
         }
     }
 }
-
